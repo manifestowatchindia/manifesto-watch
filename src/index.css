@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Ensure full height */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+/* Flex container for the whole app */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Main content grows to fill available space */
+.main-content {
+  flex: 1;
+}

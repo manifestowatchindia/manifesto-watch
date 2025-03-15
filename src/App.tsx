@@ -1,18 +1,20 @@
 import React from "react";
-import Header from "./component/Header";
+import Header from "./components/Header";
+import Contact from "./components/ContactPage";
+import Footer from "./components/Footer";
 
 const App: React.FC = () => {
   return (
-    <>
+    <div
+      className="app-container"
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       <Header />
-      <main className="pt-5 mt-5">
-        {/* Your main content */}
-        <div className="container mt-5 pt-5">
-          <h1>Welcome to Manifesto Watch</h1>
-          <p>Tracking promises, reporting facts.</p>
-        </div>
+      <main className="main-content" style={{ flex: 1, marginTop: "70px", paddingTop: "20px" }}>
+        <Contact/>
       </main>
-    </>
+      <Footer />
+    </div>
   );
 };
 
