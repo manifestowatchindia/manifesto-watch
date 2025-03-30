@@ -10,7 +10,6 @@ const App: React.FC = () => {
    <div>
     <Navbar />
     <ExploreTopTopics/>
-    <Footer />
     </div>
   );
 };

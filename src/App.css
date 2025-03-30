@@ -1,7 +1,6 @@
 /* Import fonts from Google */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
 
-
 /* Root CSS variables for colors and opacity */
 :root {
   --primary-color: #000000;       /* Black background */
@@ -25,195 +24,39 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Oswald', sans-serif;
 }
 
-/* Navbar Overrides */
-.navbar {
-  margin-bottom: 1rem;
+/* Spotlight Section */
+.spotlight {
+  flex-direction: column;
+  height: 100vh;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
-.navbar-dark .navbar-nav .nav-link {
-  transition: color 0.3s ease;
+.image-section-wrapper {
+  position: relative;
+  width: 80%;
+  margin: auto;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
 }
 
-.navbar-dark .navbar-nav .nav-link:hover {
-  color: var(--accent-color);
+.image-section {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
-/* The main-color class sets the background for the navbar */
-.main-color {
-  background-color: var(--primary-color);
-}
-
-/* Dark overlay ensures the text is legible */
-.dark-overlay {
-  background-color: var(--dark-overlay);
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-}
-
-/* Center the header title */
-.homepage-carousel-title {
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  text-align: center;
-  font-size: 2rem;
-  color: var(--text-color);
-}
-
-/* Image Column Styles */
-.col-image-left,
-.col-image-right,
-.lost-image {
-  height: 25em !important;
-  background-size: cover;
-  background-position: center;
-}
-
-.col-image-left {
-  background-image: url("./Images/PublicImages/image-4.jpg");
-}
-
-.col-image-right {
-  background-image: url("./Images/PublicImages/image-1.jpg");
-}
-
-.lost-image {
-  background-image: url("./Images/PublicImages/image-3.jpg");
-  width: 720px;
-}
-
-/* Book Div for example usages */
-.book-div {
-  width: 480px;
-  height: 384px;
-}
-
-/* Inactive Link styling */
-.inactiveLink {
-  pointer-events: none;
-  cursor: default;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .homepage-carousel-title {
-    font-size: 1.5rem;
-  }
-}
-
-/* Footer.css */
-
-.footer-links {
-  display: flex;
-  gap: 15px;
-}
-
-.footer-link {
-  color: var(--text-color);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-link:hover {
-  color: var(--accent-color);
-}
-
-.container-fluid {
-  padding: 10px;
-}
-
-/* Footer */
-.footer {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  padding: 15px 0;
-}
-
-.footer-logo img {
-  height: 50px;
-  width: auto;
-}
-
-.footer-links li {
-  margin: 0 0 5px;
-}
-
-.footer-links {
-  margin: 0;
-  padding: 0;
-}
-
-
-.footer-link {
-  color: var(--text-color);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-link:hover {
-  color: var(--accent-color);
-}
-
-/* Social media icons */
-.footer-social-media a {
-  color: var(--text-color);
-  font-size: 1.5rem;
-  transition: color 0.3s ease;
-}
-
-.footer-social-media a:hover {
-  color: var(--accent-color);
-}
-
-.footer-icon {
-  color: var(--text-color);
-  font-size: 1.5rem;
-  transition: color 0.3s ease;
-}
-
-.footer-icon:hover {
-  color: var(--accent-color);
-}
-
-/* General Styles */
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-/* Spotlight Section */
-.spotlight {
-  flex-direction: column;
-  height: 100vh;
-  margin-bottom: 0; /* Remove unnecessary bottom margin */
-  padding-bottom: 0; /* Ensure no extra padding */
-}
-
-.image-section {
-  flex: 1;
-  background-image: url('/Image/OpenImages/democracy_v2.jpg'); /* Replace with your image path */
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  height: 90%; /* Adjust the height to create gaps from top and bottom */
-  width: 80%; /* Add margins on the sides */
-  margin: auto; /* Center the section horizontally and vertically */
-  background-size: cover;
-  background-position: center;
-  border-radius: 05px; /* Add rounded corners for a modern look */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-.overlay {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for better text readability */
 }
 
 .overlay .text-center {
@@ -221,19 +64,19 @@ body, html {
 }
 
 .btn-primary {
-  background-color: var(--accent-color); /* Bold Red/Orange */
-  color: var(--text-color); /* White Text */
-  border: 2px solid var(--accent-color); /* Orange border */
-  padding: 12px 24px; /* Increase padding for better UI */
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  border: 2px solid var(--accent-color);
+  padding: 12px 24px;
   font-size: 1.2rem;
   font-weight: bold;
-  text-transform: uppercase; /* Make it more stylish */
-  border-radius: 8px; /* Smooth rounded corners */
+  text-transform: uppercase;
+  border-radius: 8px;
   transition: all 0.3s ease-in-out;
 }
 
 .btn-primary:hover {
-  background-color: var(--text-color); /* White background */
-  color: var(--accent-color); /* Orange text */
-  border: 2px solid var(--accent-color); /* Retain border */
+  background-color: var(--text-color);
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
 }
