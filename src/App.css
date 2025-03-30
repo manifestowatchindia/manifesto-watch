@@ -42,20 +42,6 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--primary-color);
 }
 
-/* Header Section with Background Image */
-.header {
-  background-image: linear-gradient(
-      rgba(0, 0, 0, 0.7),
-      rgba(0, 0, 0, 0.7)
-    ),
-    url("./Images/PublicImages/image-2.jpg");
-  opacity: var(--main-opacity);
-  height: 25em !important;
-  position: relative;
-  background-size: cover;
-  background-position: center;
-}
-
 /* Dark overlay ensures the text is legible */
 .dark-overlay {
   background-color: var(--dark-overlay);
@@ -143,7 +129,7 @@ h1, h2, h3, h4, h5, h6 {
 .footer {
   background-color: var(--primary-color);
   color: var(--text-color);
-  padding: 15px;
+  padding: 15px 0;
 }
 
 .footer-logo img {
@@ -190,4 +176,63 @@ h1, h2, h3, h4, h5, h6 {
 
 .footer-icon:hover {
   color: var(--accent-color);
+}
+
+/* General Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Spotlight Section */
+.spotlight {
+  flex-direction: column;
+  height: 100vh;
+  margin-bottom: 0; /* Remove unnecessary bottom margin */
+  padding-bottom: 0; /* Ensure no extra padding */
+}
+
+.image-section {
+  flex: 1;
+  background-image: url('../../frontend-manifesto-watch-v3/src/Images/PublicImages/democracy_v2.jpg'); /* Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 90%; /* Adjust the height to create gaps from top and bottom */
+  width: 80%; /* Add margins on the sides */
+  margin: auto; /* Center the section horizontally and vertically */
+  background-size: cover;
+  background-position: center;
+  border-radius: 05px; /* Add rounded corners for a modern look */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for better text readability */
+}
+
+.overlay .text-center {
+  z-index: 1;
+}
+
+.btn-primary {
+  background-color: var(--accent-color); /* Bold Red/Orange */
+  color: var(--text-color); /* White Text */
+  border: 2px solid var(--accent-color); /* Orange border */
+  padding: 12px 24px; /* Increase padding for better UI */
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase; /* Make it more stylish */
+  border-radius: 8px; /* Smooth rounded corners */
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: var(--text-color); /* White background */
+  color: var(--accent-color); /* Orange text */
+  border: 2px solid var(--accent-color); /* Retain border */
 }
