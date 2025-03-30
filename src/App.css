@@ -1,6 +1,7 @@
 /* Import fonts from Google */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
 
+
 /* Root CSS variables for colors and opacity */
 :root {
   --primary-color: #000000;       /* Black background */
@@ -195,7 +196,7 @@ body, html {
 
 .image-section {
   flex: 1;
-  background-image: url('../../frontend-manifesto-watch-v3/src/Images/PublicImages/democracy_v2.jpg'); /* Replace with your image path */
+  background-image: url('/Image/OpenImages/democracy_v2.jpg'); /* Replace with your image path */
   background-size: cover;
   background-position: center;
   position: relative;
