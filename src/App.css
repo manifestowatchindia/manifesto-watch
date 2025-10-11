@@ -153,6 +153,126 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--accent-color);
 }
 
+/* Upcoming Elections Section Styles */
+.election-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.election-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 16px rgba(255, 69, 0, 0.4);
+}
+
+.election-overlay {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
+  transition: background 0.3s ease;
+}
+
+.election-card:hover .election-overlay {
+  background: linear-gradient(to bottom, rgba(255, 69, 0, 0.6), rgba(0, 0, 0, 0.8));
+}
+
+.election-overlay h3 {
+  font-size: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.election-overlay p {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Carousel Arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-arrow:hover {
+  background-color: #ff5722;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 12px rgba(255, 69, 0, 0.5);
+}
+
+.carousel-arrow-left {
+  left: -25px;
+}
+
+.carousel-arrow-right {
+  right: -25px;
+}
+
+/* Pagination Dots */
+.pagination-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #555;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.pagination-dot:hover {
+  background-color: #888;
+  transform: scale(1.2);
+}
+
+.pagination-dot.active {
+  background-color: var(--accent-color);
+  width: 30px;
+  border-radius: 6px;
+}
+
+.hover-shadow {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-shadow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-header {
+  font-weight: 600;
+  padding: 1rem 1.25rem;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.badge {
+  font-weight: 500;
+  padding: 0.5em 0.75em;
+}
+
+.alert {
+  border-radius: 0.375rem;
+}
+
+.btn-sm {
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+}
+
+.gap-2 {
+  gap: 0.5rem !important;
+}
+
 /* Mobile Adjustments */
 @media (max-width: 768px) {
   .image-section-wrapper img {
@@ -172,5 +292,28 @@ h1, h2, h3, h4, h5, h6 {
   .btn-primary {
     font-size: 1rem;
     padding: 12px 24px;
+  }
+
+  /* Adjust carousel arrows for mobile */
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .carousel-arrow-left {
+    left: -15px;
+  }
+
+  .carousel-arrow-right {
+    right: -15px;
+  }
+
+  .election-overlay h3 {
+    font-size: 1.5rem;
+  }
+
+  .election-overlay p {
+    font-size: 1rem;
   }
 }
