@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SEO from '../../components/SEO';
 
 export const ContactUs: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -37,16 +38,23 @@ export const ContactUs: React.FC = () => {
     };
 
     return (
-        <div className="container my-5 py-5">
-            <div className="row justify-content-center">
-                <div className="col-lg-10">
-                    {/* Header Section */}
-                    <div className="text-center mb-5">
-                        <h1 className="display-4 fw-bold text-white mb-3">Contact Us</h1>
-                        <p className="lead text-white-50">
-                            Have questions or suggestions? We'd love to hear from you.
-                        </p>
-                    </div>
+        <div className="contact-us-page">
+            <SEO 
+                title="Contact Us - Manifesto Watch | Get in Touch"
+                description="Have questions or suggestions about political manifestos tracking? Contact Manifesto Watch team. We value your feedback and inquiries."
+                keywords="contact manifesto watch, political accountability contact, manifesto tracking support, get in touch"
+                canonicalUrl="https://www.manifestowatch.in/contact"
+            />
+            <div className="container my-5 py-5">
+                <div className="row justify-content-center">
+                    <div className="col-lg-10">
+                        {/* Header Section */}
+                        <div className="text-center mb-5">
+                            <h1 className="display-4 fw-bold text-white mb-3">Contact Us</h1>
+                            <p className="lead text-white-50">
+                                Have questions or suggestions? We'd love to hear from you.
+                            </p>
+                        </div>
 
                     <div className="row g-4">
                         {/* Contact Information */}
@@ -241,6 +249,7 @@ export const ContactUs: React.FC = () => {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     );

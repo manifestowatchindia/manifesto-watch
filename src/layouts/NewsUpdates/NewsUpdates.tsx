@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import SEO from '../../components/SEO';
 import { newsCache } from '../../utils/newsCache';
 
 interface NewsArticle {
@@ -241,6 +242,12 @@ export const NewsUpdates: React.FC = () => {
 
     return (
         <div className="news-updates-page">
+            <SEO 
+                title="News & Updates - Manifesto Watch | Latest Political News India"
+                description="Stay updated with latest political news, manifestos, and election updates from The Hindu and Indian Express. Track political developments across India."
+                keywords="political news india, election updates, manifesto news, indian politics, the hindu politics, indian express news"
+                canonicalUrl="https://www.manifestowatch.in/news"
+            />
             {/* Hero Section */}
             <div className="news-hero-section">
                 <div className="container">

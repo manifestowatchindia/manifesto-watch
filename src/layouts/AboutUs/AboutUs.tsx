@@ -1,8 +1,15 @@
 import React from 'react';
+import SEO from '../../components/SEO';
 
 export const AboutUs: React.FC = () => {
     return (
         <div className="about-us-page">
+            <SEO 
+                title="About Us - Manifesto Watch | Promoting Political Transparency in India"
+                description="Learn about Manifesto Watch's mission to promote transparency and accountability in Indian politics by tracking manifestos and election promises."
+                keywords="about manifesto watch, political transparency india, election accountability, manifesto tracking, political promises monitoring"
+                canonicalUrl="https://www.manifestowatch.in/about"
+            />
             {/* Hero Section */}
             <div className="about-hero-section">
                 <div className="container py-5">
