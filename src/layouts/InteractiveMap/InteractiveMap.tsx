@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import SEO from '../../components/SEO';
 import { STATE_CODE_MAP, normalizeStateName } from '../../utils/indiaMapPaths';
 
@@ -29,6 +29,21 @@ export const InteractiveMap: React.FC = () => {
                 console.error('Error loading map:', error);
             });
     }, []);
+
+    // Memoize SVG parsing to avoid re-parsing on every render
+    const parsedPaths = useMemo(() => {
+        if (!svgContent) return [];
+        
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
+        const paths = svgDoc.querySelectorAll('path[id^="IN"]');
+        
+        return Array.from(paths).map(path => ({
+            stateCode: path.getAttribute('id') || '',
+            svgStateName: path.getAttribute('name') || '',
+            pathData: path.getAttribute('d') || ''
+        }));
+    }, [svgContent]);
 
     // Current state governments data (as of 2025)
     const stateGovernments: StateGovernment[] = [
@@ -485,46 +500,35 @@ export const InteractiveMap: React.FC = () => {
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
                                     {/* Dynamic rendering of accurate state boundaries from professional cartographic data */}
-                                    {svgContent && (() => {
-                                        const parser = new DOMParser();
-                                        const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
-                                        const paths = svgDoc.querySelectorAll('path[id^="IN"]');
+                                    {parsedPaths.map(({ stateCode, svgStateName, pathData }) => {
+                                        // Map SVG state code to our state name using STATE_CODE_MAP
+                                        const mappedName = STATE_CODE_MAP[stateCode] || svgStateName;
+                                        const normalizedName = normalizeStateName(mappedName);
                                         
-                                        return Array.from(paths).map(path => {
-                                            const stateCode = path.getAttribute('id') || '';
-                                            const svgStateName = path.getAttribute('name') || '';
-                                            const pathData = path.getAttribute('d') || '';
-                                            
-                                            // Map SVG state code to our state name using STATE_CODE_MAP
-                                            const mappedName = STATE_CODE_MAP[stateCode] || svgStateName;
-                                            const normalizedName = normalizeStateName(mappedName);
-                                            
-                                            // Find matching state data from stateGovernments array
-                                            const stateData = getStateData(normalizedName);
-                                            if (!stateData) {
-                                                // Skip states not in our data (like small UTs without government data)
-                                                console.log(`State not found in data: ${normalizedName} (code: ${stateCode}, svg: ${svgStateName})`);
-                                                return null;
-                                            }
-                                            
-                                            return (
-                                                <path
-                                                    key={stateCode}
-                                                    d={pathData}
-                                                    fill={getStateFillColor(stateData.state)}
-                                                    stroke="#FFFFFF"
-                                                    strokeWidth="0.5"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    className="state-path"
-                                                    onMouseEnter={(e) => handleStateHover(e, stateData.state)}
-                                                    onMouseMove={handleMouseMove}
-                                                    onMouseLeave={handleStateLeave}
-                                                    data-state={stateData.state}
-                                                />
-                                            );
-                                        }).filter(Boolean); // Remove null entries
-                                    })()}
+                                        // Find matching state data from stateGovernments array
+                                        const stateData = getStateData(normalizedName);
+                                        if (!stateData) {
+                                            // Skip states not in our data (like small UTs without government data)
+                                            return null;
+                                        }
+                                        
+                                        return (
+                                            <path
+                                                key={stateCode}
+                                                d={pathData}
+                                                fill={getStateFillColor(stateData.state)}
+                                                stroke="#FFFFFF"
+                                                strokeWidth="0.5"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                className="state-path"
+                                                onMouseEnter={(e) => handleStateHover(e, stateData.state)}
+                                                onMouseMove={handleMouseMove}
+                                                onMouseLeave={handleStateLeave}
+                                                data-state={stateData.state}
+                                            />
+                                        );
+                                    }).filter(Boolean)}
                                 </svg>
 
                                 {/* Hover Tooltip */}

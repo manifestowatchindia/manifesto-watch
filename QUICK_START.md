@@ -1,45 +1,69 @@
-# 🚀 Quick Start - SEO Implementation
+# Quick Start Guide
 
-## ✅ What's Done
-- Dynamic SEO on all pages
-- Meta tags (primary, OG, Twitter)
-- Schema.org structured data
-- Sitemap.xml & robots.txt
-- All pages optimized for Google
+Get Manifesto Watch up and running in 2 minutes!
 
-## 🎯 Next 3 Steps
+## Prerequisites
 
-### 1. Create 3 Images ⚡ (30 minutes)
-```
-public/og-image.jpg       (1200x630px)  - Facebook sharing
-public/twitter-card.jpg   (1200x628px)  - Twitter sharing  
-public/logo.png           (512x512px)   - Logo for Schema.org
-```
-**Tools**: Canva.com (free templates available)
-**Colors**: Orange #FF4500, Black #000000
+- Node.js 16+ installed
+- npm or yarn
 
-### 2. Deploy Website 🌐 (15 minutes)
+## 🚀 Setup Steps
+
+### 1. Install Dependencies (1 minute)
+
 ```bash
-npm run build                    # Build production version
-# Upload to Vercel/Netlify
-# Point manifestowatch.in domain
+npm install
 ```
 
-### 3. Submit to Google 📊 (10 minutes)
-```
-1. Go to: search.google.com/search-console
-2. Add site: manifestowatch.in
-3. Verify ownership
-4. Submit sitemap: manifestowatch.in/sitemap.xml
-5. Request indexing (all 4 pages)
+### 2. Start Development Server (1 minute)
+
+```bash
+npm start
 ```
 
-## 📖 Full Documentation
-- **SEO_GUIDE.md** - Complete SEO guide
-- **IMAGE_REQUIREMENTS.md** - Image specs
-- **DEPLOYMENT_SUMMARY.md** - Full summary
+Open http://localhost:3000 - Done! 🎉
 
-## 🎉 You're Ready!
-After these 3 steps, your site will be discoverable on Google!
+## 📊 Project Structure
 
-**Need help?** Check the documentation files above.
+```
+manifesto-watch/
+├── public/              # Static files
+├── src/
+│   ├── components/      # Reusable components
+│   ├── layouts/         # Page layouts
+│   │   ├── Homepage/
+│   │   ├── Tracking/
+│   │   ├── NewsUpdates/
+│   │   └── ...
+│   └── utils/           # Utility functions
+└── README.md
+```
+
+##  Common Commands
+
+```bash
+# Development
+npm start              # Start dev server
+npm run build          # Production build
+npm test              # Run tests
+```
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. Push code to GitHub
+2. Import project in Vercel
+3. Deploy!
+
+## 🆘 Troubleshooting
+
+**Module not found**
+- Run `npm install` again
+- Delete `node_modules` and `package-lock.json`, then `npm install`
+
+## 📚 Documentation
+
+- **README.md** - Project overview
+
+Happy coding! 🚀
