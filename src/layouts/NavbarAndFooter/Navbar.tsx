@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from '../../Images/PublicImages/logo.png'
 export const Navbar = () => {
     return (
@@ -6,10 +7,10 @@ export const Navbar = () => {
             <nav className="navbar navbar-expand-lg navbar-dark main-color py-3">
                 <div className="container-fluid">
                     {/* Logo aligned on the left */}
-                    <a className="navbar-brand" href="#">
+                    <Link className="navbar-brand" to="/">
                         <img src={logo} alt="Manifesto Watch Logo" style={{ height: '40px', width: 'auto' }} />
 
-                    </a>
+                    </Link>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -25,9 +26,9 @@ export const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="#">
+                                <Link className="nav-link" to="/">
                                     Home
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">
@@ -45,9 +46,9 @@ export const Navbar = () => {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">
+                                <Link className="nav-link" to="/news">
                                     News &amp; Updates
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">
@@ -55,14 +56,14 @@ export const Navbar = () => {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">
+                                <Link className="nav-link" to="/about">
                                     About Us
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">
+                                <Link className="nav-link" to="/contact">
                                     Contact Us
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
