@@ -8,6 +8,8 @@ import { Homepage } from './layouts/Homepage/Homepage';
 import { ContactUs } from './layouts/ContactUs/ContactUs';
 import { AboutUs } from './layouts/AboutUs/AboutUs';
 import { NewsUpdates } from './layouts/NewsUpdates/NewsUpdates';
+import { PoliticalLandscape } from './layouts/PoliticalLandscape/PoliticalLandscape';
+import { InteractiveMap } from './layouts/InteractiveMap/InteractiveMap';
 
 
 const App: React.FC = () => {
@@ -18,9 +20,11 @@ const App: React.FC = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
+          <Route path="/political-landscape" element={<PoliticalLandscape />} />
+          <Route path="/interactive-map" element={<InteractiveMap />} />
+          <Route path="/news" element={<NewsUpdates />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/news" element={<NewsUpdates />} />
         </Routes>
         <Footer />
       </div>

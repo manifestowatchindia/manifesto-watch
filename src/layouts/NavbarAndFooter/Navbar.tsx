@@ -31,6 +31,21 @@ export const Navbar = () => {
                                 </Link>
                             </li>
                             <li className="nav-item">
+                                <Link className="nav-link" to="/political-landscape">
+                                    Political Landscape
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/interactive-map">
+                                    Interactive Map
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/news">
+                                    News &amp; Updates
+                                </Link>
+                            </li>
+                            <li className="nav-item">
                                 <a className="nav-link" href="#">
                                     Manifestos
                                 </a>
@@ -44,11 +59,6 @@ export const Navbar = () => {
                                 <a className="nav-link" href="#">
                                     Key Promises
                                 </a>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/news">
-                                    News &amp; Updates
-                                </Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">

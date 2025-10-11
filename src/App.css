@@ -771,3 +771,787 @@ h1, h2, h3, h4, h5, h6 {
     min-height: auto;
   }
 }
+
+/* ==========================================
+   POLITICAL LANDSCAPE PAGE STYLES
+   ========================================== */
+
+.political-landscape-page {
+  min-height: 100vh;
+  background-color: var(--primary-color);
+}
+
+/* Hero Section */
+.landscape-hero-section {
+  background: linear-gradient(135deg, var(--accent-color) 0%, #FF6B35 50%, var(--accent-color) 100%);
+  padding: 80px 0 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.landscape-hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 30%, rgba(255, 255, 255, 0.05) 70%, transparent 70%),
+    linear-gradient(-45deg, transparent 30%, rgba(255, 255, 255, 0.05) 30%, rgba(255, 255, 255, 0.05) 70%, transparent 70%);
+  background-size: 60px 60px;
+  animation: moveBackground 20s linear infinite;
+}
+
+.landscape-hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.landscape-hero-subtitle {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Statistics Card */
+.stats-card {
+  background: linear-gradient(135deg, rgba(255, 69, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 69, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.stat-item {
+  padding: 15px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  background: rgba(255, 69, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+/* Search and Filter */
+.search-box {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent-color);
+  z-index: 1;
+}
+
+.search-input {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 69, 0, 0.3);
+  border-radius: 12px;
+  color: white;
+  padding: 15px 20px 15px 50px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-color);
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.filter-select {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 69, 0, 0.3);
+  border-radius: 12px;
+  color: white;
+  padding: 15px 20px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.filter-select:focus {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-color);
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
+  outline: none;
+}
+
+.filter-select option {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+/* State Cards */
+.state-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.3) 100%);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: 100%;
+}
+
+.state-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(255, 69, 0, 0.3);
+  border-color: rgba(255, 69, 0, 0.5);
+}
+
+.state-card-header {
+  padding: 25px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(255, 69, 0, 0.1) 100%);
+  border-left: 5px solid var(--accent-color);
+}
+
+.state-name {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.party-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid currentColor;
+}
+
+.majority-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.majority-badge.simple-majority {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+}
+
+.majority-badge.coalition {
+  background-color: rgba(33, 150, 243, 0.2);
+  color: #2196F3;
+  border: 1px solid #2196F3;
+}
+
+.majority-badge.presidents-rule {
+  background-color: rgba(255, 152, 0, 0.2);
+  color: #FF9800;
+  border: 1px solid #FF9800;
+}
+
+.state-card-body {
+  padding: 25px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.info-label {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex: 0 0 40%;
+}
+
+.info-value {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: right;
+  flex: 0 0 55%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .landscape-hero-title {
+    font-size: 2.5rem;
+  }
+
+  .landscape-hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .state-name {
+    font-size: 1.5rem;
+  }
+
+  .state-card-header {
+    padding: 20px;
+  }
+
+  .state-card-body {
+    padding: 20px;
+  }
+
+  .info-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .info-label,
+  .info-value {
+    flex: 1 1 100%;
+    text-align: left;
+  }
+
+  .stats-card .row > div {
+    margin-bottom: 15px;
+  }
+
+  .party-badge {
+    font-size: 0.75rem;
+    padding: 5px 12px;
+  }
+
+  .majority-badge {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .landscape-hero-title {
+    font-size: 2rem;
+  }
+
+  .landscape-hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .state-card-header {
+    padding: 15px;
+  }
+
+  .state-card-body {
+    padding: 15px;
+  }
+}
+
+/* ==========================================
+   INDIA MAP COMPONENT STYLES
+   ========================================== */
+
+.india-map-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(255, 69, 0, 0.05) 0%, rgba(0, 0, 0, 0.3) 100%);
+  border-radius: 20px;
+  border: 2px solid rgba(255, 69, 0, 0.2);
+}
+
+.india-map-svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+}
+
+.state-path {
+  stroke: #FFFFFF;
+  stroke-width: 2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+}
+
+.state-path:hover {
+  opacity: 1;
+  stroke-width: 3;
+  stroke: var(--accent-color);
+  filter: brightness(1.2) drop-shadow(0 0 10px currentColor);
+  transform-origin: center;
+  animation: pulseState 0.6s ease-in-out;
+}
+
+@keyframes pulseState {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Map Tooltip */
+.map-tooltip {
+  position: fixed;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.95);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 69, 0, 0.5);
+  min-width: 280px;
+  max-width: 320px;
+  pointer-events: none;
+  animation: tooltipFadeIn 0.2s ease-out;
+  border: 2px solid rgba(255, 69, 0, 0.3);
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tooltip-header {
+  padding: 12px 15px;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.tooltip-header h5 {
+  font-size: 1.1rem;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.tooltip-body {
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.95);
+}
+
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tooltip-row:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.tooltip-label {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex: 0 0 45%;
+}
+
+.tooltip-value {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: right;
+  flex: 0 0 52%;
+}
+
+/* Map Section Container */
+.map-section {
+  margin: 40px 0;
+  padding: 30px 0;
+}
+
+.map-section-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.map-section-title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.map-section-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.legend-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.legend-label {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.legend-count {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  margin-left: 5px;
+}
+
+/* Responsive Map Styles */
+@media (max-width: 768px) {
+  .india-map-container {
+    padding: 15px;
+  }
+
+  .map-section-title {
+    font-size: 2rem;
+  }
+
+  .map-section-subtitle {
+    font-size: 1rem;
+  }
+
+  .map-tooltip {
+    min-width: 240px;
+    max-width: 280px;
+  }
+
+  .tooltip-header h5 {
+    font-size: 1rem;
+  }
+
+  .tooltip-label,
+  .tooltip-value {
+    font-size: 0.8rem;
+  }
+
+  .map-legend {
+    gap: 10px;
+  }
+
+  .legend-item {
+    padding: 6px 12px;
+  }
+
+  .legend-label {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .india-map-container {
+    padding: 10px;
+  }
+
+  .map-section-title {
+    font-size: 1.75rem;
+  }
+
+  .map-section-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .map-tooltip {
+    min-width: 220px;
+    max-width: 260px;
+  }
+
+  .tooltip-header {
+    padding: 10px 12px;
+  }
+
+  .tooltip-body {
+    padding: 12px;
+  }
+
+  .tooltip-label,
+  .tooltip-value {
+    font-size: 0.75rem;
+  }
+}
+
+/* ==========================================
+   INTERACTIVE MAP PAGE STYLES
+   ========================================== */
+
+.interactive-map-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+}
+
+/* Hero Section */
+.map-page-hero {
+  background: linear-gradient(135deg, var(--accent-color) 0%, #000000 100%);
+  padding: 80px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.map-page-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+  background-size: 50px 50px;
+  opacity: 0.3;
+}
+
+.map-hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.map-hero-subtitle {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Quick Stats Cards */
+.quick-stat-card {
+  background: linear-gradient(135deg, rgba(255, 69, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
+  padding: 25px 20px;
+  border-radius: 15px;
+  border: 2px solid rgba(255, 69, 0, 0.3);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.quick-stat-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-color);
+  box-shadow: 0 10px 30px rgba(255, 69, 0, 0.3);
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Main Map Section */
+.main-map-section {
+  background: linear-gradient(135deg, rgba(255, 69, 0, 0.05) 0%, rgba(0, 0, 0, 0.4) 100%);
+  padding: 40px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 69, 0, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Legend Grid */
+.legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 10px;
+}
+
+/* Map Instructions */
+.map-instructions {
+  background: linear-gradient(135deg, rgba(255, 69, 0, 0.05) 0%, rgba(0, 0, 0, 0.3) 100%);
+  padding: 30px;
+  border-radius: 15px;
+  border: 2px solid rgba(255, 69, 0, 0.2);
+}
+
+.instruction-card {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.instruction-card:hover {
+  background: rgba(255, 69, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+.instruction-card i {
+  opacity: 0.8;
+}
+
+.instruction-card h6 {
+  margin-top: 10px;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design for Interactive Map Page */
+@media (max-width: 992px) {
+  .map-hero-title {
+    font-size: 2.8rem;
+  }
+
+  .map-hero-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .main-map-section {
+    padding: 30px 20px;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-hero-title {
+    font-size: 2.2rem;
+  }
+
+  .map-hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .map-page-hero {
+    padding: 60px 0;
+  }
+
+  .quick-stat-card {
+    padding: 20px 15px;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+  }
+
+  .main-map-section {
+    padding: 20px 15px;
+  }
+
+  .legend-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .map-hero-title {
+    font-size: 1.8rem;
+  }
+
+  .map-hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .map-page-hero {
+    padding: 40px 0;
+  }
+
+  .stat-number {
+    font-size: 1.8rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .main-map-section {
+    padding: 15px 10px;
+  }
+
+  .legend-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .instruction-card {
+    padding: 15px;
+  }
+
+  .instruction-card i {
+    font-size: 1.5rem !important;
+  }
+
+  .instruction-card h6 {
+    font-size: 1rem;
+  }
+}
