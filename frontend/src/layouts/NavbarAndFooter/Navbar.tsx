@@ -50,25 +50,29 @@ export const Navbar = () => {
                                     News &amp; Updates
                                 </Link>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">
+                            <li className="nav-item dropdown">
+                                <a 
+                                    className="nav-link dropdown-toggle" 
+                                    href="#" 
+                                    id="manifestosDropdown" 
+                                    role="button" 
+                                    data-bs-toggle="dropdown" 
+                                    aria-expanded="false"
+                                >
                                     Manifestos
                                 </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">
-                                    Comparisons
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">
-                                    Key Promises
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">
-                                    Data &amp; Analysis
-                                </a>
+                                <ul className="dropdown-menu" aria-labelledby="manifestosDropdown">
+                                    <li>
+                                        <Link className="dropdown-item" to="/manifestos/central">
+                                            Central Government
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link className="dropdown-item" to="/manifestos/states">
+                                            States & Union Territories
+                                        </Link>
+                                    </li>
+                                </ul>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/about">

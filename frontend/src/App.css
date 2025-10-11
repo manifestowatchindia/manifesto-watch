@@ -121,28 +121,97 @@ h1, h2, h3, h4, h5, h6 {
 .footer {
   background-color: var(--primary-color);
   color: var(--text-color);
-  padding: 15px 0;
-  text-align: center;
+  margin-top: 60px;
+  position: relative;
+}
+
+.footer h5,
+.footer h6 {
+  color: var(--text-color);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
 .footer-links {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
   padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
 }
 
 .footer-link {
-  color: var(--text-color);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  display: inline-block;
 }
 
 .footer-link:hover {
   color: var(--accent-color);
+  padding-left: 5px;
 }
 
-/* Social Media Icons */
+/* Footer Social Media Icons */
+.footer-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.footer-icon:hover {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+/* Footer Input Group */
+.footer .input-group .form-control {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+}
+
+.footer .input-group .form-control:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent-color);
+  color: var(--text-color);
+  box-shadow: none;
+}
+
+.footer .input-group .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer .input-group .btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+}
+
+.footer .input-group .btn-outline-light:hover {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--primary-color);
+}
+
+/* Footer Bottom Border */
+.footer .border-top {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Social Media Icons (legacy) */
 .footer-social-media a {
   color: var(--text-color);
   font-size: 1.5rem;
