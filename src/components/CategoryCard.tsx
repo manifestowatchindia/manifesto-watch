@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Category } from '../lib/types';
-import { getPromisesByCategory, getAggregatedStats } from '../lib/data';
+import { Category, Promise as PromiseType } from '../lib/types';
+import { promiseService } from '../services/promiseService';
 
 interface CategoryCardProps {
   category: Category;
 }
 
 export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
-  const promises = getPromisesByCategory(category.id);
-  const stats = getAggregatedStats(promises);
+  const [promises, setPromises] = useState<PromiseType[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    promiseService.getPromisesByCategory(category.id).then((data) => {
+      setPromises(data);
+      setLoading(false);
+    }).catch(() => {
+      setLoading(false);
+    });
+  }, [category.id]);
+
+  const stats = promiseService.getStats(promises);
 
   // Icon mapping - using Font Awesome icons
   const iconMap: Record<string, string> = {
@@ -132,7 +143,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
                       color: category.color || '#FF4500'
                     }}
                   >
-                    {stats.totalPromises}
+                    {stats.total}
                   </div>
                   <div 
                     style={{ 
@@ -192,7 +203,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
                 }}
               >
                 {Object.entries(stats.statusBreakdown).map(([status, count]) => {
-                  const percentage = (count / stats.totalPromises) * 100;
+                  const percentage = stats.total > 0 ? (count / stats.total) * 100 : 0;
                   const statusColors: Record<string, string> = {
                     'Delivered': '#4CAF50',
                     'Under implementation': '#2196F3',

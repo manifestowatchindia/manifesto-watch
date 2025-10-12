@@ -1,15 +1,27 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { categories } from '../../data/categories';
 import { CategoryCard } from '../../components/CategoryCard';
-import { promises, getAggregatedStats } from '../../lib/data';
+import { promiseService } from '../../services/promiseService';
+import { Promise as PromiseType } from '../../lib/types';
 import SEO from '../../components/SEO';
 
 export const ManifestoWatchDashboard: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'measurable' | 'budget'>('all');
+  const [promises, setPromises] = useState<PromiseType[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    promiseService.getAllPromises().then((data) => {
+      setPromises(data);
+      setLoading(false);
+    }).catch(() => {
+      setLoading(false);
+    });
+  }, []);
 
   // Calculate overall stats
-  const overallStats = useMemo(() => getAggregatedStats(promises), []);
+  const overallStats = useMemo(() => promiseService.getStats(promises), [promises]);
 
   // Filter categories based on search
   const filteredCategories = useMemo(() => {
@@ -56,7 +68,7 @@ export const ManifestoWatchDashboard: React.FC = () => {
               >
                 <i className="fas fa-check-circle" style={{ fontSize: '3rem', color: '#FF4500', marginBottom: '1rem' }}></i>
                 <h2 style={{ color: '#fff', fontSize: '2.5rem', fontWeight: '700', marginBottom: '0.5rem' }}>
-                  {overallStats.totalPromises}
+                  {overallStats.total}
                 </h2>
                 <p style={{ color: '#aaa', fontSize: '1rem', marginBottom: 0, textTransform: 'uppercase', letterSpacing: '1px' }}>
                   Total Promises

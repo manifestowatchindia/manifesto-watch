@@ -1,20 +1,66 @@
-import React, { useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import { categories } from '../../data/categories';
 import { getAggregatedStats } from '../../lib/data';
 import { CategoryCard } from '../../components/CategoryCard';
 import { Promise } from '../../lib/types';
-import promisesData from '../../data/promises.json';
+import { promiseService } from '../../services/promiseService';
 
 export const BJP2024Tracker: React.FC = () => {
-  // Cast promises data to correct type
-  const promises = promisesData as Promise[];
+  const [promises, setPromises] = useState<Promise[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch promises from API
+  useEffect(() => {
+    const loadPromises = async () => {
+      try {
+        setLoading(true);
+        const data = await promiseService.getAllPromises();
+        setPromises(data);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to load promises:', err);
+        setError('Failed to load promises. Please ensure the backend is running.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPromises();
+  }, []);
   
   // Calculate overall statistics
   const overallStats = useMemo(() => {
     return getAggregatedStats(promises);
   }, [promises]);
+
+  if (loading) {
+    return (
+      <div style={{ backgroundColor: '#000', minHeight: '100vh', paddingTop: '2rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div className="text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p style={{ color: '#aaa', marginTop: '1rem' }}>Loading promises...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ backgroundColor: '#000', minHeight: '100vh', paddingTop: '2rem' }}>
+        <div className="container">
+          <div className="alert alert-danger" role="alert">
+            <i className="fas fa-exclamation-triangle me-2"></i>
+            {error}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

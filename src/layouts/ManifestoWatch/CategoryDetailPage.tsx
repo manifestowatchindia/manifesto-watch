@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getCategoryBySlug } from '../../data/categories';
-import { getPromisesByCategory, getAggregatedStats } from '../../lib/data';
+import { promiseService } from '../../services/promiseService';
 import SEO from '../../components/SEO';
 import { Promise } from '../../lib/types';
 
@@ -362,6 +362,22 @@ export const CategoryDetailPage: React.FC = () => {
   const [selectedPromise, setSelectedPromise] = useState<Promise | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [allPromises, setAllPromises] = useState<Promise[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch promises when component mounts or category changes
+  useEffect(() => {
+    if (category) {
+      setLoading(true);
+      promiseService.getPromisesByCategory(category.id).then((promises) => {
+        setAllPromises(promises);
+        setLoading(false);
+      }).catch((error) => {
+        console.error('Error loading promises:', error);
+        setLoading(false);
+      });
+    }
+  }, [category?.id]);
 
   if (!category) {
     return (
@@ -377,11 +393,23 @@ export const CategoryDetailPage: React.FC = () => {
     );
   }
 
-  const allPromises = getPromisesByCategory(category.id);
-  const stats = getAggregatedStats(allPromises);
+  if (loading) {
+    return (
+      <div style={{ backgroundColor: '#000', minHeight: '100vh', padding: '4rem 0' }}>
+        <div className="container text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p className="text-white mt-3">Loading promises...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const stats = promiseService.getStats(allPromises);
 
   // Filter promises
-  const filteredPromises = allPromises.filter((promise) => {
+  const filteredPromises = allPromises.filter((promise: Promise) => {
     const matchesSearch = 
       searchQuery === '' ||
       promise.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -476,7 +504,7 @@ export const CategoryDetailPage: React.FC = () => {
                   <div className="col-6">
                     <div className="text-center p-2" style={{ backgroundColor: '#0d0d0d', borderRadius: '8px' }}>
                       <div style={{ color: category.color, fontSize: '1.8rem', fontWeight: '700' }}>
-                        {stats.totalPromises}
+                        {stats.total}
                       </div>
                       <div style={{ color: '#888', fontSize: '0.75rem' }}>Total Promises</div>
                     </div>

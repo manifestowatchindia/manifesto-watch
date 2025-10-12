@@ -46,7 +46,6 @@ export const NewsUpdates: React.FC = () => {
                 items = xmlDoc.querySelectorAll('entry');
             }
             
-            console.log(`Found ${items.length} items in ${source} feed`);
             const articles: NewsArticle[] = [];
 
             items.forEach((item, index) => {
@@ -82,7 +81,6 @@ export const NewsUpdates: React.FC = () => {
                 }
             });
 
-            console.log(`Parsed ${articles.length} articles from ${source}`);
             return articles;
         } catch (error) {
             console.error('Error parsing RSS feed:', error);
