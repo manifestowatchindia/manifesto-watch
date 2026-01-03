@@ -1,51 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
   <url>
     <loc>https://www.manifestowatch.in/</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <!-- Main Pages -->
   <url>
     <loc>https://www.manifestowatch.in/political-landscape</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.manifestowatch.in/interactive-map</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.manifestowatch.in/tracking</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.manifestowatch.in/manifestos</loc>
-    <lastmod>2025-10-11</lastmod>
+    <loc>https://www.manifestowatch.in/news</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Manifesto Pages -->
+  <url>
+    <loc>https://www.manifestowatch.in/manifestos/central</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.manifestowatch.in/news</loc>
-    <lastmod>2025-10-11</lastmod>
-    <changefreq>hourly</changefreq>
+    <loc>https://www.manifestowatch.in/manifestos/states</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.manifestowatch.in/manifestos/central/2024/bjp/15pointsversion</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Dashboard -->
+  <url>
+    <loc>https://www.manifestowatch.in/government-dashboard</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Legal & Info Pages -->
+  <url>
     <loc>https://www.manifestowatch.in/about</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.manifestowatch.in/contact</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.manifestowatch.in/disclaimer</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.manifestowatch.in/terms</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.manifestowatch.in/privacy-policy</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.manifestowatch.in/faq</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>
