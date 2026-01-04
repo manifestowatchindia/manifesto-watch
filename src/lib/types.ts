@@ -57,3 +57,29 @@ export interface AggregatedStats {
   typeBreakdown: Record<PromiseType, number>;
   timelineBreakdown: Record<Timeline, number>;
 }
+
+// Manifesto Types
+export type ElectionType = "lok_sabha" | "state_assembly" | "ut_assembly" | "vidhan_sabha" | "municipal";
+export type RegionKind = "state" | "union_territory" | "national" | null;
+
+export interface Manifesto {
+  id: string;
+  party_name: string;
+  election_year: number;
+  election_type: ElectionType;
+  alliance_name: string | null;
+  region_name: string | null;
+  region_code: string | null;
+  region_kind: RegionKind;
+  language: string;
+  document_url: string | null;
+  published_date: string;
+  is_winner: boolean;
+}
+
+export interface ManifestoFilter {
+  type?: ElectionType;
+  year?: number;
+  party?: string;
+  region?: string;
+}

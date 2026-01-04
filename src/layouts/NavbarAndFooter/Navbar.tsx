@@ -3,6 +3,23 @@ import logo from '../../Images/PublicImages/logo.png'
 export const Navbar = () => {
     return (
         <>
+            {/* Development Banner */}
+            <div style={{
+                backgroundColor: '#FF9800',
+                color: '#000',
+                textAlign: 'center',
+                padding: '10px 15px',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+                borderBottom: '2px solid #F57C00',
+                position: 'sticky',
+                top: 0,
+                zIndex: 1040
+            }}>
+                <i className="fas fa-exclamation-triangle me-2"></i>
+                This website is under development. Information displayed should not be taken as verified or official proof. Data is being continuously updated and validated.
+            </div>
+            
             {/* Navbar with Logo on the Left and Menu items on the Right */}
             <nav className="navbar navbar-expand-lg navbar-dark main-color py-3">
                 <div className="container-fluid">
