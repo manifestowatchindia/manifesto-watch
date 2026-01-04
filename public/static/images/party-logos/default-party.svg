@@ -1,0 +1,22 @@
+<!-- Default Party Logo SVG -->
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="90" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
+  
+  <!-- Flag icon -->
+  <g transform="translate(70, 50)">
+    <!-- Flag pole -->
+    <rect x="0" y="0" width="4" height="100" fill="#6c757d"/>
+    
+    <!-- Flag -->
+    <path d="M 4 0 L 60 20 L 4 40 Z" fill="#ffc107"/>
+    
+    <!-- Text "Party" -->
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="14" fill="#495057" font-weight="bold">
+      PARTY
+    </text>
+  </g>
+  
+  <!-- Bottom circle decoration -->
+  <circle cx="100" cy="160" r="5" fill="#6c757d"/>
+</svg>

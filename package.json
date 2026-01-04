@@ -1,5 +1,5 @@
 {
-  "name": "frontend-manifesto-watch-v3",
+  "name": "manifesto-watch",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

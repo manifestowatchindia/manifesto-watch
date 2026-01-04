@@ -1,0 +1,368 @@
+/* Manifestos Page Styles */
+
+.manifestos-page {
+    min-height: 100vh;
+    background: var(--primary-color, #0a0a0a);
+}
+
+/* Hero Section */
+.manifestos-hero {
+    background: linear-gradient(135deg, #FF4500 0%, #FF6B35 100%);
+    padding: 80px 0 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.manifestos-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(255, 255, 255, 0.03) 10px,
+            rgba(255, 255, 255, 0.03) 20px
+        );
+    pointer-events: none;
+}
+
+.manifestos-hero h1 {
+    position: relative;
+    z-index: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.manifestos-hero .lead {
+    position: relative;
+    z-index: 1;
+}
+
+/* Filters Section */
+.filters-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px 0;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.filters-section .form-label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.filters-section .form-select,
+.filters-section .form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.filters-section .form-select:focus,
+.filters-section .form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #FF6B35;
+    box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+    color: #fff;
+}
+
+.filters-section .form-select option {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.filters-section .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Content Section */
+.manifestos-content {
+    padding: 60px 0;
+}
+
+/* Manifesto Card */
+.manifesto-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.manifesto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+    border-color: rgba(255, 107, 53, 0.5);
+}
+
+.manifesto-card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.party-logo-placeholder {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #FF4500, #FF6B35);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.party-logo-placeholder i {
+    font-size: 1.8rem;
+    color: white;
+}
+
+.manifesto-card-header h5 {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.manifesto-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.manifesto-meta .badge {
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+}
+
+.manifesto-card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+    color: #e0e0e0;
+}
+
+.manifesto-card-body h6 {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.highlights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.highlights-list li {
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.highlights-list li i {
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+}
+
+.manifesto-card-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.manifesto-card-footer .btn {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 0.65rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.manifesto-card-footer .btn-primary {
+    background: linear-gradient(135deg, #FF4500, #FF6B35);
+    border: none;
+}
+
+.manifesto-card-footer .btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #e63e00, #ff5a24);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+}
+
+.manifesto-card-footer .btn-primary:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.manifesto-card-footer .btn-outline-primary {
+    border-color: rgba(255, 107, 53, 0.5);
+    color: #FF6B35;
+}
+
+.manifesto-card-footer .btn-outline-primary:hover:not(:disabled) {
+    background: rgba(255, 107, 53, 0.1);
+    border-color: #FF6B35;
+    color: #FF6B35;
+}
+
+.manifesto-card-footer .btn-outline-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* No Results */
+.no-results {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 3rem;
+    text-align: center;
+}
+
+.no-results i {
+    opacity: 0.5;
+}
+
+/* Info Banner */
+.info-banner {
+    background: linear-gradient(135deg, rgba(255, 69, 0, 0.1), rgba(255, 107, 53, 0.1));
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 16px;
+    padding: 2rem;
+}
+
+.info-banner h5 {
+    color: #FF6B35;
+    font-weight: 600;
+}
+
+.info-banner p {
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+}
+
+.info-banner .btn-outline-light {
+    border-width: 2px;
+    font-weight: 500;
+    padding: 0.65rem 1.5rem;
+    border-radius: 8px;
+}
+
+.info-banner .btn-outline-light:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.info-banner .btn-outline-light:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .manifestos-hero {
+        padding: 60px 0 40px;
+    }
+
+    .manifestos-hero h1 {
+        font-size: 2rem;
+    }
+
+    .filters-section {
+        padding: 20px 0;
+    }
+
+    .manifestos-content {
+        padding: 40px 0;
+    }
+
+    .manifesto-card-header h5 {
+        font-size: 1rem;
+    }
+
+    .party-logo-placeholder {
+        width: 50px;
+        height: 50px;
+    }
+
+    .party-logo-placeholder i {
+        font-size: 1.5rem;
+    }
+
+    .info-banner {
+        padding: 1.5rem;
+    }
+}
+
+/* Loading States */
+.manifesto-card.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.manifesto-card.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Accessibility */
+.manifesto-card:focus-within {
+    outline: 2px solid #FF6B35;
+    outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+    .filters-section,
+    .manifesto-card-footer,
+    .info-banner .btn {
+        display: none;
+    }
+
+    .manifesto-card {
+        page-break-inside: avoid;
+        border: 1px solid #000;
+    }
+}

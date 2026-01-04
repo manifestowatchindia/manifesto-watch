@@ -13,6 +13,15 @@ const NewsUpdates = lazy(() => import('./layouts/NewsUpdates/NewsUpdates').then(
 const PoliticalLandscape = lazy(() => import('./layouts/PoliticalLandscape/PoliticalLandscape').then(module => ({ default: module.PoliticalLandscape })));
 const InteractiveMap = lazy(() => import('./layouts/InteractiveMap/InteractiveMap').then(module => ({ default: module.InteractiveMap })));
 const Tracking = lazy(() => import('./layouts/Tracking/Tracking').then(module => ({ default: module.Tracking })));
+const CentralManifestos = lazy(() => import('./layouts/Manifestos/CentralManifestos').then(module => ({ default: module.CentralManifestos })));
+const StateManifestos = lazy(() => import('./layouts/Manifestos/StateManifestos').then(module => ({ default: module.StateManifestos })));
+const Disclaimer = lazy(() => import('./layouts/Legal/Disclaimer').then(module => ({ default: module.Disclaimer })));
+const TermsOfService = lazy(() => import('./layouts/Legal/TermsOfService').then(module => ({ default: module.TermsOfService })));
+const PrivacyPolicy = lazy(() => import('./layouts/Legal/PrivacyPolicy').then(module => ({ default: module.PrivacyPolicy })));
+const FAQ = lazy(() => import('./layouts/Legal/FAQ').then(module => ({ default: module.FAQ })));
+const ManifestoWatchDashboard = lazy(() => import('./layouts/ManifestoWatch/ManifestoWatchDashboard').then(module => ({ default: module.ManifestoWatchDashboard })));
+const CategoryDetailPage = lazy(() => import('./layouts/ManifestoWatch/CategoryDetailPage').then(module => ({ default: module.CategoryDetailPage })));
+const BJP2024Tracker = lazy(() => import('./layouts/ManifestoWatch/BJP2024Tracker').then(module => ({ default: module.BJP2024Tracker })));
 
 // Loading spinner component
 const LoadingSpinner: React.FC = () => (
@@ -44,9 +53,18 @@ const App: React.FC = () => {
             <Route path="/political-landscape" element={<PoliticalLandscape />} />
             <Route path="/interactive-map" element={<InteractiveMap />} />
             <Route path="/tracking" element={<Tracking />} />
+            <Route path="/manifestos/central" element={<CentralManifestos />} />
+            <Route path="/manifestos/central/2024/bjp/15pointsversion" element={<BJP2024Tracker />} />
+            <Route path="/manifestos/states" element={<StateManifestos />} />
             <Route path="/news" element={<NewsUpdates />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/government-dashboard" element={<ManifestoWatchDashboard />} />
+            <Route path="/government-dashboard/category/:slug" element={<CategoryDetailPage />} />
           </Routes>
         </Suspense>
         <Footer />

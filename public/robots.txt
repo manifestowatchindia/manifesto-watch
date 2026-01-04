@@ -4,7 +4,6 @@
 # Allow all search engines
 User-agent: *
 Allow: /
-Disallow: /api/
 Disallow: /admin/
 
 # Sitemaps
