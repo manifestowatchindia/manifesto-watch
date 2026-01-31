@@ -83,3 +83,25 @@ export interface ManifestoFilter {
   party?: string;
   region?: string;
 }
+
+// Election Types
+export interface Election {
+  id: string;
+  state: string;
+  date: string; // ISO 8601 date string
+  constituencies: number;
+  voters: number;
+  parties: string[];
+  manifestosReleased: number;
+  promisesTracked: number;
+  electionType: ElectionType;
+  regionCode?: string;
+}
+
+export interface CountdownData {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  totalMilliseconds: number;
+}

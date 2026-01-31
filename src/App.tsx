@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Navbar } from './layouts/NavbarAndFooter/Navbar';
 import { Footer } from './layouts/NavbarAndFooter/Footer';
+import { ErrorBoundary } from './lib/performance/ErrorBoundary';
 
 // Lazy load heavy components for better performance
 const Homepage = lazy(() => import('./layouts/Homepage/Homepage').then(module => ({ default: module.Homepage })));
@@ -22,53 +23,50 @@ const FAQ = lazy(() => import('./layouts/Legal/FAQ').then(module => ({ default: 
 const ManifestoWatchDashboard = lazy(() => import('./layouts/ManifestoWatch/ManifestoWatchDashboard').then(module => ({ default: module.ManifestoWatchDashboard })));
 const CategoryDetailPage = lazy(() => import('./layouts/ManifestoWatch/CategoryDetailPage').then(module => ({ default: module.CategoryDetailPage })));
 const BJP2024Tracker = lazy(() => import('./layouts/ManifestoWatch/BJP2024Tracker').then(module => ({ default: module.BJP2024Tracker })));
+const StateElectionHub = lazy(() => import('./layouts/Elections/StateElectionHub').then(module => ({ default: module.StateElectionHub })));
+const ConstituencyView = lazy(() => import('./layouts/Elections/ConstituencyView').then(module => ({ default: module.ConstituencyView })));
 
-// Loading spinner component
+// Loading spinner component with Tailwind
 const LoadingSpinner: React.FC = () => (
-  <div style={{
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '60vh',
-    flexDirection: 'column',
-    gap: '1rem'
-  }}>
-    <div className="spinner-border text-warning" role="status" style={{ width: '3rem', height: '3rem' }}>
-      <span className="visually-hidden">Loading...</span>
+  <div className="flex justify-center items-center" style={{ minHeight: '60vh' }}>
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" role="status">
+      <span className="sr-only">Loading...</span>
     </div>
-    <p className="text-white">Loading...</p>
   </div>
 );
-
 
 const App: React.FC = () => {
   return (
    <HelmetProvider>
     <Router>
-      <div>
-        <Navbar />
-        <Suspense fallback={<LoadingSpinner />}>
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/political-landscape" element={<PoliticalLandscape />} />
-            <Route path="/interactive-map" element={<InteractiveMap />} />
-            <Route path="/tracking" element={<Tracking />} />
-            <Route path="/manifestos/central" element={<CentralManifestos />} />
-            <Route path="/manifestos/central/2024/bjp/15pointsversion" element={<BJP2024Tracker />} />
-            <Route path="/manifestos/states" element={<StateManifestos />} />
-            <Route path="/news" element={<NewsUpdates />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/contact" element={<ContactUs />} />
-            <Route path="/disclaimer" element={<Disclaimer />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/government-dashboard" element={<ManifestoWatchDashboard />} />
-            <Route path="/government-dashboard/category/:slug" element={<CategoryDetailPage />} />
-          </Routes>
-        </Suspense>
-        <Footer />
-      </div>
+      <ErrorBoundary>
+        <div>
+          <Navbar />
+          <Suspense fallback={<LoadingSpinner />}>
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/political-landscape" element={<PoliticalLandscape />} />
+              <Route path="/interactive-map" element={<InteractiveMap />} />
+              <Route path="/tracking" element={<Tracking />} />
+              <Route path="/manifestos/central" element={<CentralManifestos />} />
+              <Route path="/manifestos/central/2024/bjp/15pointsversion" element={<BJP2024Tracker />} />
+              <Route path="/manifestos/states" element={<StateManifestos />} />
+              <Route path="/news" element={<NewsUpdates />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/contact" element={<ContactUs />} />
+              <Route path="/disclaimer" element={<Disclaimer />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/government-dashboard" element={<ManifestoWatchDashboard />} />
+              <Route path="/government-dashboard/category/:slug" element={<CategoryDetailPage />} />
+              <Route path="/elections/:state-:year" element={<StateElectionHub />} />
+              <Route path="/elections/:state-:year/constituencies/:id" element={<ConstituencyView />} />
+            </Routes>
+          </Suspense>
+          <Footer />
+        </div>
+      </ErrorBoundary>
     </Router>
    </HelmetProvider>
   );

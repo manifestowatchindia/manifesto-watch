@@ -1,13 +1,11 @@
 /**
  * Manifesto Service
- * Handles fetching manifesto data from API only
+ * Handles fetching manifesto data from API with centralized caching
  */
 
 import { Manifesto, ManifestoFilter } from '../lib/types';
 import { API_CONFIG, API_ENDPOINTS, buildApiUrl } from '../lib/config';
-
-// Cache
-let manifestoCache: { data: Manifesto[]; timestamp: number } | null = null;
+import cacheManager from './api/cache-manager';
 
 /**
  * Fetch manifestos from API
@@ -32,33 +30,38 @@ async function fetchFromApi(filters?: ManifestoFilter): Promise<Manifesto[]> {
 }
 
 /**
- * Check if cache is valid
+ * Generate cache key from filters
  */
-function isCacheValid(): boolean {
-  if (!manifestoCache) return false;
-  const now = Date.now();
-  return (now - manifestoCache.timestamp) < API_CONFIG.CACHE_TTL;
+function generateCacheKey(filters?: ManifestoFilter): string {
+  if (!filters) return 'manifestos:all';
+  return `manifestos:${JSON.stringify(filters)}`;
 }
 
 /**
  * Main function to get manifestos
  */
 export async function getManifestos(filters?: ManifestoFilter): Promise<Manifesto[]> {
+  const cacheKey = generateCacheKey(filters);
+  
   // Check cache first
-  if (isCacheValid() && !filters) {
-    return manifestoCache!.data;
+  const cached = cacheManager.get<Manifesto[]>(cacheKey);
+  if (cached) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[Cache Hit] Manifestos ${filters ? 'with filters' : 'all'}`);
+    }
+    return cached;
+  }
+
+  // Cache miss - fetch from API
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[Cache Miss] Manifestos ${filters ? 'with filters' : 'all'} - fetching from API`);
   }
   
   try {
     const data = await fetchFromApi(filters);
     
-    // Update cache
-    if (!filters) {
-      manifestoCache = {
-        data,
-        timestamp: Date.now()
-      };
-    }
+    // Store in cache with 5 minute TTL
+    cacheManager.set(cacheKey, data, API_CONFIG.CACHE_TTL);
     
     return data;
   } catch (error) {
@@ -71,6 +74,22 @@ export async function getManifestos(filters?: ManifestoFilter): Promise<Manifest
  * Get a single manifesto by ID
  */
 export async function getManifestoById(id: string): Promise<Manifesto | null> {
+  const cacheKey = `manifestos:id:${id}`;
+  
+  // Check cache first
+  const cached = cacheManager.get<Manifesto>(cacheKey);
+  if (cached) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[Cache Hit] Manifesto ${id}`);
+    }
+    return cached;
+  }
+
+  // Cache miss - fetch from API
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[Cache Miss] Manifesto ${id} - fetching from API`);
+  }
+
   try {
     const url = buildApiUrl(API_ENDPOINTS.MANIFESTO_BY_ID(id));
     const response = await fetch(url, {
@@ -78,7 +97,12 @@ export async function getManifestoById(id: string): Promise<Manifesto | null> {
     });
     
     if (response.ok) {
-      return await response.json();
+      const manifesto = await response.json();
+      
+      // Store in cache
+      cacheManager.set(cacheKey, manifesto, API_CONFIG.CACHE_TTL);
+      
+      return manifesto;
     }
     
     return null;
@@ -110,8 +134,13 @@ export async function getManifestosByParty(party: string): Promise<Manifesto[]> 
 }
 
 /**
- * Clear cache
+ * Clear manifesto cache
  */
 export function clearManifestoCache(): void {
-  manifestoCache = null;
+  const keys = cacheManager.getKeys();
+  keys.forEach(key => {
+    if (key.startsWith('manifestos:')) {
+      cacheManager.delete(key);
+    }
+  });
 }

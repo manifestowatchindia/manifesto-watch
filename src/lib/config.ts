@@ -41,6 +41,14 @@ export const API_ENDPOINTS = {
   STATS: '/api/v1/stats',
   STATS_BY_CATEGORY: (categoryId: string) => `/api/v1/stats/category/${categoryId}`,
   STATS_BY_MANIFESTO: (manifestoId: string) => `/api/v1/stats/manifesto/${manifestoId}`,
+  
+  // Election endpoints
+  ELECTIONS_ACTIVE: '/api/v1/elections/active',
+  ELECTION_BY_ID: (id: string) => `/api/v1/elections/${id}`,
+  
+  // Search endpoints
+  SEARCH: '/api/v1/search',
+  SEARCH_SUGGESTIONS: '/api/v1/search/suggestions',
 };
 
 /**
