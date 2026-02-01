@@ -10,6 +10,12 @@ export const API_CONFIG = {
   // API version
   VERSION: 'v1',
   
+  // Debug info (will be removed in next update)
+  _DEBUG: {
+    ENV_VAR: process.env.REACT_APP_API_BASE_URL,
+    USING_FALLBACK: !process.env.REACT_APP_API_BASE_URL,
+  },
+  
   // Timeout settings
   TIMEOUT: 10000, // 10 seconds
   
@@ -83,3 +89,9 @@ export const checkApiAvailability = async (): Promise<boolean> => {
     return false;
   }
 };
+
+// Debug logging (will be removed in next update)
+console.log('🔍 API Configuration Debug:');
+console.log('- REACT_APP_API_BASE_URL env var:', process.env.REACT_APP_API_BASE_URL);
+console.log('- Using BASE_URL:', API_CONFIG.BASE_URL);
+console.log('- Is using fallback localhost?', !process.env.REACT_APP_API_BASE_URL);
