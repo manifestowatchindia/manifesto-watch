@@ -108,18 +108,18 @@ export const ContactUs: React.FC = () => {
                                 <div className="mt-5">
                                     <h5 className="text-white mb-3">Follow Us</h5>
                                     <div className="d-flex gap-3">
-                                        <a href="#" className="social-icon">
+                                        <button type="button" className="social-icon" aria-label="Twitter">
                                             <i className="fab fa-twitter fs-5"></i>
-                                        </a>
-                                        <a href="#" className="social-icon">
+                                        </button>
+                                        <button type="button" className="social-icon" aria-label="Facebook">
                                             <i className="fab fa-facebook fs-5"></i>
-                                        </a>
-                                        <a href="#" className="social-icon">
+                                        </button>
+                                        <button type="button" className="social-icon" aria-label="Instagram">
                                             <i className="fab fa-instagram fs-5"></i>
-                                        </a>
-                                        <a href="#" className="social-icon">
+                                        </button>
+                                        <button type="button" className="social-icon" aria-label="LinkedIn">
                                             <i className="fab fa-linkedin fs-5"></i>
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

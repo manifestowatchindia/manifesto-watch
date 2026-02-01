@@ -377,7 +377,7 @@ export const CategoryDetailPage: React.FC = () => {
         setLoading(false);
       });
     }
-  }, [category?.id]);
+  }, [category]);  // Fixed: include full 'category' dependency
 
   if (!category) {
     return (
