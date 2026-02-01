@@ -1,111 +1,175 @@
-import React, { useState, useEffect } from 'react';
-import SEO from '../../components/SEO';
-import { ExploreTopTopics } from './ExploreTopTopics';
-import { UpcomingElections } from './UpcomingElections';
-import { ElectionCountdown } from '../../components/election/ElectionCountdown';
+import React, { useState, useEffect, useMemo } from 'react';
+import { HeroSectionOverlay, UpcomingElection, TopPromisesSection, StateElectionHubs, InteractiveIndiaMap, AboutManifestoWatch, SectionErrorBoundary, HomepageSEO } from '../../components/homepage';
 import { electionService } from '../../services/election/electionService';
 import { Election } from '../../lib/types';
 
+/**
+ * Transform Election data to UpcomingElection format for HeroSection
+ */
+const transformToUpcomingElection = (election: Election): UpcomingElection => ({
+    id: election.id,
+    state: election.state,
+    stateCode: election.regionCode || election.state.slice(0, 2).toUpperCase(),
+    electionType: election.electionType === 'lok_sabha' ? 'lok_sabha' : 'assembly',
+    electionDate: election.date,
+    status: new Date(election.date) > new Date() ? 'upcoming' : 'completed',
+    totalSeats: election.constituencies,
+});
+
+/**
+ * Default upcoming elections for fallback
+ * (Used when API is unavailable)
+ */
+const DEFAULT_UPCOMING_ELECTIONS: UpcomingElection[] = [
+    {
+        id: 'kerala-2026',
+        state: 'Kerala',
+        stateCode: 'KL',
+        electionType: 'assembly',
+        electionDate: '2026-04-15',
+        status: 'upcoming',
+        totalSeats: 140,
+    },
+    {
+        id: 'tamil-nadu-2026',
+        state: 'Tamil Nadu',
+        stateCode: 'TN',
+        electionType: 'assembly',
+        electionDate: '2026-05-01',
+        status: 'upcoming',
+        totalSeats: 234,
+    },
+    {
+        id: 'west-bengal-2026',
+        state: 'West Bengal',
+        stateCode: 'WB',
+        electionType: 'assembly',
+        electionDate: '2026-05-15',
+        status: 'upcoming',
+        totalSeats: 294,
+    },
+    {
+        id: 'assam-2026',
+        state: 'Assam',
+        stateCode: 'AS',
+        electionType: 'assembly',
+        electionDate: '2026-04-20',
+        status: 'upcoming',
+        totalSeats: 126,
+    },
+];
+
 export const Homepage: React.FC = () => {
-    const [featuredElection, setFeaturedElection] = useState<Election | null>(null);
+    const [elections, setElections] = useState<Election[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchFeaturedElection = async () => {
+        const fetchElections = async () => {
             try {
                 setIsLoading(true);
                 setError(null);
 
-                // Try to get user's state for personalization (with error handling)
-                let userState: string | null = null;
-                try {
-                    userState = await electionService.getUserState();
-                } catch (geoError) {
-                    // Silently fail geolocation - not critical
-                    console.log('Geolocation unavailable, showing default election');
-                }
+                // Fetch active elections (within 365 days for more options)
+                const fetchedElections = await electionService.getActiveElections(365);
 
-                // Fetch active elections (within 180 days)
-                const elections = await electionService.getActiveElections(180, userState || undefined);
-
-                if (elections && elections.length > 0) {
-                    // Prioritize user's state election if available
-                    const userStateElection = userState 
-                        ? elections.find(e => e.state.toLowerCase() === userState!.toLowerCase())
-                        : null;
-
-                    // Use user's state election or closest election
-                    setFeaturedElection(userStateElection || elections[0]);
+                if (fetchedElections && fetchedElections.length > 0) {
+                    setElections(fetchedElections);
                 } else {
-                    setFeaturedElection(null);
+                    setElections([]);
                 }
             } catch (err) {
-                console.error('Failed to fetch featured election:', err);
+                console.error('Failed to fetch elections:', err);
                 setError('Unable to load election information');
-                setFeaturedElection(null);
+                setElections([]);
             } finally {
                 setIsLoading(false);
             }
         };
 
-        fetchFeaturedElection();
+        fetchElections();
     }, []);
+
+    // Transform elections for HeroSection
+    const upcomingElections: UpcomingElection[] = useMemo(() => {
+        if (elections.length > 0) {
+            return elections.map(transformToUpcomingElection);
+        }
+        // Use default elections as fallback
+        return DEFAULT_UPCOMING_ELECTIONS;
+    }, [elections]);
 
     return (
         <>
-            <SEO 
-                title="Manifesto Watch - Track Political Manifestos & Promises in India"
-                description="Track and monitor political party manifestos, election promises, and their implementation across Indian states. Promoting transparency and accountability in Indian democracy."
-                canonicalUrl="https://www.manifestowatch.in/"
-            />
+            <HomepageSEO electionContext="Kerala, Tamil Nadu, West Bengal Elections 2026" />
             
-            {/* Featured Election Countdown Section */}
-            <section className="bg-gradient-to-b from-blue-50 to-white py-8 md:py-12">
-                <div className="container mx-auto px-4">
-                    {isLoading && (
-                        <div className="flex justify-center items-center min-h-[400px]" role="status" aria-label="Loading election information">
-                            <div className="animate-pulse space-y-4 w-full max-w-4xl">
-                                {/* Skeleton for countdown */}
-                                <div className="h-8 bg-gray-200 rounded w-2/3 mx-auto"></div>
-                                <div className="h-64 bg-gray-200 rounded-lg"></div>
-                                <div className="h-12 bg-gray-200 rounded w-1/2 mx-auto"></div>
+            {/* Hero Section with Multi-Election Countdown */}
+            {isLoading ? (
+                <section className="bg-black py-16 md:py-24">
+                    <div className="container mx-auto px-4">
+                        <div className="flex justify-center items-center min-h-[500px]" role="status" aria-label="Loading election information">
+                            <div className="animate-pulse space-y-6 w-full max-w-4xl">
+                                {/* Skeleton for hero content */}
+                                <div className="h-8 bg-white/10 rounded w-1/3 mx-auto"></div>
+                                <div className="h-16 bg-white/10 rounded w-2/3 mx-auto"></div>
+                                <div className="h-6 bg-white/10 rounded w-1/2 mx-auto"></div>
+                                <div className="flex justify-center gap-4 mt-8">
+                                    <div className="h-12 bg-white/10 rounded w-40"></div>
+                                    <div className="h-12 bg-white/10 rounded w-40"></div>
+                                </div>
                             </div>
                         </div>
-                    )}
+                    </div>
+                </section>
+            ) : (
+                <HeroSectionOverlay
+                    backgroundImage="/static/images/democracy_v2.jpg"
+                    tagline="Track Political Promises.
+Hold Leaders Accountable."
+                    subtitle="India's most trusted platform for monitoring election manifestos and tracking promise delivery across all states."
+                    primaryCTA={{
+                        text: 'Track Your Election',
+                        link: '/tracking',
+                        icon: '🗳️',
+                    }}
+                    secondaryCTA={{
+                        text: 'Compare Parties',
+                        link: '/compare',
+                        icon: '⚖️',
+                    }}
+                    searchPlaceholder="Search your state or constituency..."
+                    voiceSearchEnabled={true}
+                    stats={[
+                        { icon: '📍', value: '28+', label: 'States Tracked' },
+                        { icon: '📋', value: '100', label: 'Promises Monitored' },
+                        { icon: '🎯', value: '50+', label: 'Parties Covered' },
+                        { icon: '✅', value: '100%', label: 'Non-Partisan' },
+                    ]}
+                    parallaxEnabled={true}
+                />
+            )}
 
-                    {error && !isLoading && (
-                        <div 
-                            className="max-w-4xl mx-auto bg-red-50 border border-red-200 rounded-lg p-6 text-center"
-                            role="alert"
-                            aria-live="polite"
-                        >
-                            <p className="text-red-800 font-semibold mb-2">⚠️ {error}</p>
-                            <p className="text-red-600 text-sm">
-                                Please try refreshing the page or check back later.
-                            </p>
-                        </div>
-                    )}
+            {/* Top Promises by Category (STORY-057) */}
+            <div className="bg-black">
+                <TopPromisesSection />
+            </div>
 
-                    {!isLoading && !error && featuredElection && (
-                        <div className="max-w-6xl mx-auto">
-                            <ElectionCountdown election={featuredElection} priority="primary" />
-                        </div>
-                    )}
+            {/* State Election Hub Cards (STORY-058) */}
+            <div className="bg-black">
+                <StateElectionHubs />
+            </div>
 
-                    {!isLoading && !error && !featuredElection && (
-                        <div className="max-w-4xl mx-auto bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
-                            <p className="text-blue-800 font-semibold mb-2">📅 No Upcoming Elections</p>
-                            <p className="text-blue-600 text-sm">
-                                There are no elections scheduled in the near future. Check back later for updates!
-                            </p>
-                        </div>
-                    )}
-                </div>
-            </section>
+            {/* Interactive India Map (STORY-059) */}
+            <div className="bg-black">
+                <InteractiveIndiaMap />
+            </div>
 
-            <ExploreTopTopics />
-            <UpcomingElections />
+            {/* About ManifestoWatch Trust Section (STORY-068) */}
+            <div className="bg-black">
+                <SectionErrorBoundary sectionName="about">
+                    <AboutManifestoWatch />
+                </SectionErrorBoundary>
+            </div>
         </>
     );
 };

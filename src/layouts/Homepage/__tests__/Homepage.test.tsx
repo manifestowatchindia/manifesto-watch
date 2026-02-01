@@ -1,6 +1,7 @@
 /**
  * Homepage Component Tests
- * Tests for homepage with integrated ElectionCountdown
+ * Tests for homepage with integrated HeroSection (Multi-Election Countdown)
+ * Updated to use design system colors
  */
 
 import React from 'react';
@@ -9,14 +10,11 @@ import '@testing-library/jest-dom';
 import { Homepage } from '../Homepage';
 import { electionService } from '../../../services/election/electionService';
 import { Election } from '../../../lib/types';
+import { UpcomingElection } from '../../../components/homepage';
 
 // Mock child components
 jest.mock('../ExploreTopTopics', () => ({
   ExploreTopTopics: () => <div data-testid="explore-top-topics">Explore Top Topics</div>,
-}));
-
-jest.mock('../UpcomingElections', () => ({
-  UpcomingElections: () => <div data-testid="upcoming-elections">Upcoming Elections</div>,
 }));
 
 jest.mock('../../../components/SEO', () => ({
@@ -24,12 +22,63 @@ jest.mock('../../../components/SEO', () => ({
   default: () => <div data-testid="seo">SEO</div>,
 }));
 
-jest.mock('../../../components/election/ElectionCountdown', () => ({
-  ElectionCountdown: ({ election }: { election: Election }) => (
-    <div data-testid="election-countdown">
-      Election Countdown: {election.state}
+// Mock HeroSection, LiveTrackerWidget, TopPromisesSection, StateElectionHubs, InteractiveIndiaMap, DataHubSection, ManifestoLibrarySection, AboutManifestoWatch, SubscribeSocialSection, SectionErrorBoundary, and HomepageSEO components
+jest.mock('../../../components/homepage', () => ({
+  HeroSection: ({ elections }: { elections: UpcomingElection[] }) => (
+    <div data-testid="hero-section">
+      <div data-testid="election-countdown-strip">
+        {elections.map((election) => (
+          <div key={election.id} data-testid={`election-card-${election.id}`}>
+            Election: {election.state}
+          </div>
+        ))}
+      </div>
+      <div data-testid="hero-tagline">Track Political Promises. Hold Leaders Accountable.</div>
     </div>
   ),
+  LiveTrackerWidget: ({ stats, title }: { stats: any; title: string }) => (
+    <div data-testid="live-tracker-widget">
+      <div>{title}</div>
+      <div>Total: {stats.total}</div>
+    </div>
+  ),
+  TopPromisesSection: () => (
+    <div data-testid="top-promises-section">
+      <div>Top Promises by Category</div>
+    </div>
+  ),
+  StateElectionHubs: () => (
+    <div data-testid="state-election-hubs">
+      <div>State Election Hubs 2026</div>
+    </div>
+  ),
+  InteractiveIndiaMap: () => (
+    <div data-testid="interactive-india-map">
+      <div>Explore India</div>
+    </div>
+  ),
+  DataHubSection: () => (
+    <div data-testid="data-hub-section">
+      <div>Data Hub</div>
+    </div>
+  ),
+  ManifestoLibrarySection: () => (
+    <div data-testid="manifesto-library-section">
+      <div>Manifesto Library</div>
+    </div>
+  ),
+  AboutManifestoWatch: () => (
+    <div data-testid="about-manifesto-watch">
+      <div>About ManifestoWatch</div>
+    </div>
+  ),
+  SubscribeSocialSection: () => (
+    <div data-testid="subscribe-social-section">
+      <div>Stay Informed</div>
+    </div>
+  ),
+  SectionErrorBoundary: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  HomepageSEO: () => <div data-testid="homepage-seo">SEO Meta Tags</div>,
 }));
 
 // Mock electionService
@@ -69,7 +118,7 @@ describe('Homepage', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (electionService.getUserState as jest.Mock).mockResolvedValue(null);
+    // Don't mock getUserState since it's no longer called in the new implementation
     (electionService.getActiveElections as jest.Mock).mockResolvedValue([mockElectionKerala]);
   });
 
@@ -106,18 +155,10 @@ describe('Homepage', () => {
         expect(electionService.getActiveElections).toHaveBeenCalledTimes(1);
       });
 
-      expect(electionService.getActiveElections).toHaveBeenCalledWith(180, undefined);
+      expect(electionService.getActiveElections).toHaveBeenCalledWith(365);
     });
 
-    it('should attempt to get user state on mount', async () => {
-      render(<Homepage />);
-
-      await waitFor(() => {
-        expect(electionService.getUserState).toHaveBeenCalledTimes(1);
-      });
-    });
-
-    it('should display closest election by default', async () => {
+    it('should display elections in HeroSection', async () => {
       (electionService.getActiveElections as jest.Mock).mockResolvedValue([
         mockElectionKerala,
         mockElectionMaharashtra,
@@ -126,83 +167,36 @@ describe('Homepage', () => {
       render(<Homepage />);
 
       await waitFor(() => {
-        expect(screen.getByTestId('election-countdown')).toBeInTheDocument();
+        expect(screen.getByTestId('hero-section')).toBeInTheDocument();
       });
 
-      expect(screen.getByText(/Election Countdown: Kerala/)).toBeInTheDocument();
+      // Check that elections are displayed
+      expect(screen.getByTestId('election-card-kerala-2026')).toBeInTheDocument();
+      expect(screen.getByTestId('election-card-maharashtra-2026')).toBeInTheDocument();
     });
 
-    it('should prioritize user state election when available', async () => {
-      (electionService.getUserState as jest.Mock).mockResolvedValue('Maharashtra');
-      (electionService.getActiveElections as jest.Mock).mockResolvedValue([
-        mockElectionKerala,
-        mockElectionMaharashtra,
-      ]);
-
+    it('should display hero tagline', async () => {
       render(<Homepage />);
 
       await waitFor(() => {
-        expect(screen.getByTestId('election-countdown')).toBeInTheDocument();
+        expect(screen.getByTestId('hero-tagline')).toBeInTheDocument();
       });
 
-      expect(screen.getByText(/Election Countdown: Maharashtra/)).toBeInTheDocument();
-    });
-
-    it('should pass user state to getActiveElections when available', async () => {
-      (electionService.getUserState as jest.Mock).mockResolvedValue('Kerala');
-
-      render(<Homepage />);
-
-      await waitFor(() => {
-        expect(electionService.getActiveElections).toHaveBeenCalledWith(180, 'Kerala');
-      });
-    });
-
-    it('should use closest election when user state election not found', async () => {
-      (electionService.getUserState as jest.Mock).mockResolvedValue('Tamil Nadu');
-      (electionService.getActiveElections as jest.Mock).mockResolvedValue([
-        mockElectionKerala,
-        mockElectionMaharashtra,
-      ]);
-
-      render(<Homepage />);
-
-      await waitFor(() => {
-        expect(screen.getByTestId('election-countdown')).toBeInTheDocument();
-      });
-
-      // Should show Kerala (first in array) since Tamil Nadu not found
-      expect(screen.getByText(/Election Countdown: Kerala/)).toBeInTheDocument();
+      expect(screen.getByText(/Track Political Promises/)).toBeInTheDocument();
     });
   });
 
   describe('Error Handling', () => {
-    it('should display error message when API fails', async () => {
+    it('should use default elections when API fails', async () => {
       (electionService.getActiveElections as jest.Mock).mockRejectedValue(
         new Error('API Error')
       );
 
       render(<Homepage />);
 
+      // Should still render HeroSection with default elections
       await waitFor(() => {
-        expect(screen.getByRole('alert')).toBeInTheDocument();
-      });
-
-      expect(screen.getByText(/Unable to load election information/)).toBeInTheDocument();
-      expect(screen.getByText(/Please try refreshing the page/)).toBeInTheDocument();
-    });
-
-    it('should have accessible error message', async () => {
-      (electionService.getActiveElections as jest.Mock).mockRejectedValue(
-        new Error('API Error')
-      );
-
-      render(<Homepage />);
-
-      await waitFor(() => {
-        const alert = screen.getByRole('alert');
-        expect(alert).toBeInTheDocument();
-        expect(alert).toHaveAttribute('aria-live', 'polite');
+        expect(screen.getByTestId('hero-section')).toBeInTheDocument();
       });
     });
 
@@ -215,62 +209,40 @@ describe('Homepage', () => {
 
       await waitFor(() => {
         expect(consoleError).toHaveBeenCalledWith(
-          'Failed to fetch featured election:',
+          'Failed to fetch elections:',
           error
         );
       });
 
       consoleError.mockRestore();
     });
-
-    it('should not display election countdown when error occurs', async () => {
-      (electionService.getActiveElections as jest.Mock).mockRejectedValue(
-        new Error('API Error')
-      );
-
-      render(<Homepage />);
-
-      await waitFor(() => {
-        expect(screen.getByRole('alert')).toBeInTheDocument();
-      });
-
-      expect(screen.queryByTestId('election-countdown')).not.toBeInTheDocument();
-    });
   });
 
-  describe('No Elections State', () => {
-    it('should display message when no elections are available', async () => {
+  describe('Fallback Elections', () => {
+    it('should display default elections when no elections are fetched', async () => {
       (electionService.getActiveElections as jest.Mock).mockResolvedValue([]);
 
       render(<Homepage />);
 
       await waitFor(() => {
-        expect(screen.getByText(/No Upcoming Elections/)).toBeInTheDocument();
+        expect(screen.getByTestId('hero-section')).toBeInTheDocument();
       });
 
-      expect(screen.getByText(/There are no elections scheduled/)).toBeInTheDocument();
+      // Should have default elections (kerala, tamil-nadu, west-bengal, assam)
+      expect(screen.getByTestId('election-card-kerala-2026')).toBeInTheDocument();
     });
 
-    it('should display message when elections is null', async () => {
+    it('should display default elections when API returns null', async () => {
       (electionService.getActiveElections as jest.Mock).mockResolvedValue(null);
 
       render(<Homepage />);
 
       await waitFor(() => {
-        expect(screen.getByText(/No Upcoming Elections/)).toBeInTheDocument();
-      });
-    });
-
-    it('should not display election countdown when no elections available', async () => {
-      (electionService.getActiveElections as jest.Mock).mockResolvedValue([]);
-
-      render(<Homepage />);
-
-      await waitFor(() => {
-        expect(screen.getByText(/No Upcoming Elections/)).toBeInTheDocument();
+        expect(screen.getByTestId('hero-section')).toBeInTheDocument();
       });
 
-      expect(screen.queryByTestId('election-countdown')).not.toBeInTheDocument();
+      // Should have default elections
+      expect(screen.getByTestId('election-card-kerala-2026')).toBeInTheDocument();
     });
   });
 
@@ -278,7 +250,7 @@ describe('Homepage', () => {
     it('should render SEO component', async () => {
       render(<Homepage />);
 
-      expect(screen.getByTestId('seo')).toBeInTheDocument();
+      expect(screen.getByTestId('homepage-seo')).toBeInTheDocument();
     });
 
     it('should render ExploreTopTopics section', async () => {
@@ -289,56 +261,20 @@ describe('Homepage', () => {
       });
     });
 
-    it('should render UpcomingElections section', async () => {
+    it('should render InteractiveIndiaMap section', async () => {
       render(<Homepage />);
 
       await waitFor(() => {
-        expect(screen.getByTestId('upcoming-elections')).toBeInTheDocument();
+        expect(screen.getByTestId('interactive-india-map')).toBeInTheDocument();
       });
     });
 
-    it('should display ElectionCountdown when election is available', async () => {
+    it('should display HeroSection when election data is loaded', async () => {
       render(<Homepage />);
 
       await waitFor(() => {
-        expect(screen.getByTestId('election-countdown')).toBeInTheDocument();
+        expect(screen.getByTestId('hero-section')).toBeInTheDocument();
       });
-    });
-  });
-
-  describe('Responsive Design', () => {
-    it('should have gradient background section', async () => {
-      const { container } = render(<Homepage />);
-
-      await waitFor(() => {
-        expect(screen.getByTestId('election-countdown')).toBeInTheDocument();
-      });
-
-      const section = container.querySelector('section.bg-gradient-to-b');
-      expect(section).toBeInTheDocument();
-      expect(section).toHaveClass('from-blue-50', 'to-white');
-    });
-
-    it('should have responsive padding classes', async () => {
-      const { container } = render(<Homepage />);
-
-      await waitFor(() => {
-        expect(screen.getByTestId('election-countdown')).toBeInTheDocument();
-      });
-
-      const section = container.querySelector('section');
-      expect(section).toHaveClass('py-8', 'md:py-12');
-    });
-
-    it('should have container with responsive padding', async () => {
-      const { container } = render(<Homepage />);
-
-      await waitFor(() => {
-        expect(screen.getByTestId('election-countdown')).toBeInTheDocument();
-      });
-
-      const containerDiv = container.querySelector('.container.mx-auto.px-4');
-      expect(containerDiv).toBeInTheDocument();
     });
   });
 
@@ -349,40 +285,20 @@ describe('Homepage', () => {
       // Should start with loading
       expect(screen.getByRole('status')).toBeInTheDocument();
 
-      // Should end with countdown
+      // Should end with hero section
       await waitFor(() => {
-        expect(screen.getByTestId('election-countdown')).toBeInTheDocument();
+        expect(screen.getByTestId('hero-section')).toBeInTheDocument();
       });
 
-      // Should not have loading or error
+      // Should not have loading anymore
       expect(screen.queryByRole('status')).not.toBeInTheDocument();
-      expect(screen.queryByRole('alert')).not.toBeInTheDocument();
-    });
-
-    it('should handle getUserState failure gracefully', async () => {
-      (electionService.getUserState as jest.Mock).mockRejectedValue(
-        new Error('Geolocation denied')
-      );
-      (electionService.getActiveElections as jest.Mock).mockResolvedValue([mockElectionKerala]);
-
-      render(<Homepage />);
-
-      await waitFor(() => {
-        expect(screen.getByTestId('election-countdown')).toBeInTheDocument();
-      });
-
-      // Should still show election (without user state)
-      expect(screen.getByText(/Election Countdown: Kerala/)).toBeInTheDocument();
-      
-      // Should have been called without user state
-      expect(electionService.getActiveElections).toHaveBeenCalledWith(180, undefined);
     });
 
     it('should render all sections in correct order', async () => {
       const { container } = render(<Homepage />);
 
       await waitFor(() => {
-        expect(screen.getByTestId('election-countdown')).toBeInTheDocument();
+        expect(screen.getByTestId('hero-section')).toBeInTheDocument();
       });
 
       const sections = Array.from(container.querySelectorAll('section, div[data-testid]'));
@@ -390,13 +306,13 @@ describe('Homepage', () => {
         .map(el => el.getAttribute('data-testid'))
         .filter(Boolean);
 
-      // SEO should be first (in helmet)
-      expect(testIds[0]).toBe('seo');
-      // Election countdown section (no testid, but comes before others)
+      // HomepageSEO should be first
+      expect(testIds[0]).toBe('homepage-seo');
+      // Then HeroSection
+      expect(testIds).toContain('hero-section');
       // Then ExploreTopTopics
       expect(testIds).toContain('explore-top-topics');
-      // Then UpcomingElections
-      expect(testIds).toContain('upcoming-elections');
     });
   });
 });
+

@@ -9,7 +9,6 @@ import { ErrorBoundary } from './lib/performance/ErrorBoundary';
 // Lazy load heavy components for better performance
 const Homepage = lazy(() => import('./layouts/Homepage/Homepage').then(module => ({ default: module.Homepage })));
 const ContactUs = lazy(() => import('./layouts/ContactUs/ContactUs').then(module => ({ default: module.ContactUs })));
-const AboutUs = lazy(() => import('./layouts/AboutUs/AboutUs').then(module => ({ default: module.AboutUs })));
 const NewsUpdates = lazy(() => import('./layouts/NewsUpdates/NewsUpdates').then(module => ({ default: module.NewsUpdates })));
 const PoliticalLandscape = lazy(() => import('./layouts/PoliticalLandscape/PoliticalLandscape').then(module => ({ default: module.PoliticalLandscape })));
 const InteractiveMap = lazy(() => import('./layouts/InteractiveMap/InteractiveMap').then(module => ({ default: module.InteractiveMap })));
@@ -52,7 +51,6 @@ const App: React.FC = () => {
               <Route path="/manifestos/central/2024/bjp/15pointsversion" element={<BJP2024Tracker />} />
               <Route path="/manifestos/states" element={<StateManifestos />} />
               <Route path="/news" element={<NewsUpdates />} />
-              <Route path="/about" element={<AboutUs />} />
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/disclaimer" element={<Disclaimer />} />
               <Route path="/terms" element={<TermsOfService />} />

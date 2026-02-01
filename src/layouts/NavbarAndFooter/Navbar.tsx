@@ -27,9 +27,9 @@ export const Navbar = () => {
             </div>
             
             {/* Navbar */}
-            <nav className="bg-primary-900 text-white py-3 shadow-md sticky top-[52px] z-40">
-                <div className="container mx-auto px-4">
-                    <div className="flex items-center justify-between">
+            <nav className="bg-black text-white shadow-sm sticky top-[52px] z-40 border-b border-gray-800">
+                <div className="container mx-auto px-6">
+                    <div className="flex items-center justify-between h-16">
                         {/* Logo */}
                         <Link 
                             to="/" 
@@ -39,14 +39,14 @@ export const Navbar = () => {
                             <img 
                                 src={logo} 
                                 alt="Manifesto Watch Logo" 
-                                className="h-10 w-auto"
+                                className="h-9 w-auto"
                             />
                         </Link>
 
                         {/* Hamburger Menu Button (Mobile) */}
                         <button
                             onClick={toggleMenu}
-                            className="lg:hidden p-2 rounded-md hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-300 transition-colors"
+                            className="lg:hidden p-2 rounded-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-700 transition-colors"
                             aria-expanded={isOpen}
                             aria-label="Toggle navigation menu"
                         >
@@ -75,53 +75,53 @@ export const Navbar = () => {
                         </button>
 
                         {/* Desktop Menu */}
-                        <div className="hidden lg:flex lg:items-center lg:space-x-1">
+                        <div className="hidden lg:flex lg:items-center lg:space-x-8">
                             <Link
                                 to="/"
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`text-sm font-bold transition-colors relative pb-1 ${
                                     isActive('/')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                        ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white'
+                                        : 'text-gray-300 hover:text-white'
                                 }`}
                             >
                                 Home
                             </Link>
                             <Link
                                 to="/political-landscape"
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`text-sm font-bold transition-colors relative pb-1 ${
                                     isActive('/political-landscape')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                        ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white'
+                                        : 'text-gray-300 hover:text-white'
                                 }`}
                             >
                                 Political Landscape
                             </Link>
                             <Link
                                 to="/interactive-map"
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`text-sm font-bold transition-colors relative pb-1 ${
                                     isActive('/interactive-map')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                        ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white'
+                                        : 'text-gray-300 hover:text-white'
                                 }`}
                             >
                                 Interactive Map
                             </Link>
                             <Link
                                 to="/tracking"
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`text-sm font-bold transition-colors relative pb-1 ${
                                     isActive('/tracking')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                        ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white'
+                                        : 'text-gray-300 hover:text-white'
                                 }`}
                             >
                                 Tracking
                             </Link>
                             <Link
                                 to="/news"
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`text-sm font-bold transition-colors relative pb-1 ${
                                     isActive('/news')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                        ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white'
+                                        : 'text-gray-300 hover:text-white'
                                 }`}
                             >
                                 News &amp; Updates
@@ -132,10 +132,10 @@ export const Navbar = () => {
                                 <button
                                     onClick={toggleManifestos}
                                     onBlur={() => setTimeout(() => setIsManifestosOpen(false), 200)}
-                                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center ${
+                                    className={`text-sm font-bold transition-colors flex items-center relative pb-1 ${
                                         isManifestosActive()
-                                            ? 'bg-primary-800 text-white'
-                                            : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                            ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white'
+                                            : 'text-gray-300 hover:text-white'
                                     }`}
                                     aria-expanded={isManifestosOpen}
                                     aria-haspopup="true"
@@ -158,15 +158,15 @@ export const Navbar = () => {
                                     </svg>
                                 </button>
                                 {isManifestosOpen && (
-                                    <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                                    <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-900 ring-1 ring-gray-700 z-50">
                                         <div className="py-1" role="menu" aria-orientation="vertical">
                                             <Link
                                                 to="/manifestos/central"
                                                 onClick={() => setIsManifestosOpen(false)}
-                                                className={`block px-4 py-2 text-sm transition-colors ${
+                                                className={`block px-4 py-2 text-sm font-bold transition-colors ${
                                                     isActive('/manifestos/central')
-                                                        ? 'bg-primary-100 text-primary-900'
-                                                        : 'text-gray-700 hover:bg-gray-100'
+                                                        ? 'bg-gray-800 text-white'
+                                                        : 'text-gray-300 hover:bg-gray-800 hover:text-white'
                                                 }`}
                                                 role="menuitem"
                                             >
@@ -175,10 +175,10 @@ export const Navbar = () => {
                                             <Link
                                                 to="/manifestos/states"
                                                 onClick={() => setIsManifestosOpen(false)}
-                                                className={`block px-4 py-2 text-sm transition-colors ${
+                                                className={`block px-4 py-2 text-sm font-bold transition-colors ${
                                                     isActive('/manifestos/states')
-                                                        ? 'bg-primary-100 text-primary-900'
-                                                        : 'text-gray-700 hover:bg-gray-100'
+                                                        ? 'bg-gray-800 text-white'
+                                                        : 'text-gray-300 hover:bg-gray-800 hover:text-white'
                                                 }`}
                                                 role="menuitem"
                                             >
@@ -190,21 +190,11 @@ export const Navbar = () => {
                             </div>
 
                             <Link
-                                to="/about"
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                                    isActive('/about')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
-                                }`}
-                            >
-                                About Us
-                            </Link>
-                            <Link
                                 to="/contact"
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`text-sm font-bold transition-colors relative pb-1 ${
                                     isActive('/contact')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                        ? 'text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white'
+                                        : 'text-gray-300 hover:text-white'
                                 }`}
                             >
                                 Contact Us
@@ -218,14 +208,14 @@ export const Navbar = () => {
                             isOpen ? 'max-h-screen opacity-100 mt-4' : 'max-h-0 opacity-0'
                         }`}
                     >
-                        <div className="flex flex-col space-y-1 pb-3">
+                        <div className="flex flex-col space-y-1 pb-3 bg-black">
                             <Link
                                 to="/"
                                 onClick={closeMenu}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`px-6 py-3 text-sm font-bold transition-colors border-l-4 ${
                                     isActive('/')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                        ? 'border-white bg-gray-900 text-white'
+                                        : 'border-transparent text-gray-300 hover:bg-gray-900 hover:border-gray-700'
                                 }`}
                             >
                                 Home
@@ -233,10 +223,10 @@ export const Navbar = () => {
                             <Link
                                 to="/political-landscape"
                                 onClick={closeMenu}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`px-6 py-3 text-sm font-bold transition-colors border-l-4 ${
                                     isActive('/political-landscape')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                        ? 'border-white bg-gray-900 text-white'
+                                        : 'border-transparent text-gray-300 hover:bg-gray-900 hover:border-gray-700'
                                 }`}
                             >
                                 Political Landscape
@@ -244,10 +234,10 @@ export const Navbar = () => {
                             <Link
                                 to="/interactive-map"
                                 onClick={closeMenu}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`px-6 py-3 text-sm font-bold transition-colors border-l-4 ${
                                     isActive('/interactive-map')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                        ? 'border-white bg-gray-900 text-white'
+                                        : 'border-transparent text-gray-300 hover:bg-gray-900 hover:border-gray-700'
                                 }`}
                             >
                                 Interactive Map
@@ -255,10 +245,10 @@ export const Navbar = () => {
                             <Link
                                 to="/tracking"
                                 onClick={closeMenu}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`px-6 py-3 text-sm font-bold transition-colors border-l-4 ${
                                     isActive('/tracking')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                        ? 'border-white bg-gray-900 text-white'
+                                        : 'border-transparent text-gray-700 hover:bg-gray-50 hover:border-gray-300'
                                 }`}
                             >
                                 Tracking
@@ -266,10 +256,10 @@ export const Navbar = () => {
                             <Link
                                 to="/news"
                                 onClick={closeMenu}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`px-6 py-3 text-sm font-bold transition-colors border-l-4 ${
                                     isActive('/news')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                        ? 'border-white bg-gray-900 text-white'
+                                        : 'border-transparent text-gray-300 hover:bg-gray-900 hover:border-gray-700'
                                 }`}
                             >
                                 News &amp; Updates
@@ -279,10 +269,10 @@ export const Navbar = () => {
                             <div>
                                 <button
                                     onClick={toggleManifestos}
-                                    className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center justify-between ${
+                                    className={`w-full text-left px-6 py-3 text-sm font-bold transition-colors flex items-center justify-between border-l-4 ${
                                         isManifestosActive()
-                                            ? 'bg-primary-800 text-white'
-                                            : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                            ? 'border-white bg-gray-900 text-white'
+                                            : 'border-transparent text-gray-300 hover:bg-gray-900 hover:border-gray-700'
                                     }`}
                                     aria-expanded={isManifestosOpen}
                                 >
@@ -308,10 +298,10 @@ export const Navbar = () => {
                                         <Link
                                             to="/manifestos/central"
                                             onClick={closeMenu}
-                                            className={`block px-4 py-2 rounded-md text-sm transition-colors ${
+                                            className={`block px-6 py-2 text-sm font-bold transition-colors ${
                                                 isActive('/manifestos/central')
-                                                    ? 'bg-primary-800 text-white'
-                                                    : 'text-gray-300 hover:bg-primary-800 hover:text-white'
+                                                    ? 'bg-gray-800 text-white'
+                                                    : 'text-gray-400 hover:bg-gray-800 hover:text-white'
                                             }`}
                                         >
                                             Central Government
@@ -319,10 +309,10 @@ export const Navbar = () => {
                                         <Link
                                             to="/manifestos/states"
                                             onClick={closeMenu}
-                                            className={`block px-4 py-2 rounded-md text-sm transition-colors ${
+                                            className={`block px-6 py-2 text-sm font-bold transition-colors ${
                                                 isActive('/manifestos/states')
-                                                    ? 'bg-primary-800 text-white'
-                                                    : 'text-gray-300 hover:bg-primary-800 hover:text-white'
+                                                    ? 'bg-gray-800 text-white'
+                                                    : 'text-gray-400 hover:bg-gray-800 hover:text-white'
                                             }`}
                                         >
                                             States &amp; Union Territories
@@ -332,23 +322,12 @@ export const Navbar = () => {
                             </div>
 
                             <Link
-                                to="/about"
-                                onClick={closeMenu}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                                    isActive('/about')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
-                                }`}
-                            >
-                                About Us
-                            </Link>
-                            <Link
                                 to="/contact"
                                 onClick={closeMenu}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`px-6 py-3 text-sm font-bold transition-colors border-l-4 ${
                                     isActive('/contact')
-                                        ? 'bg-primary-800 text-white'
-                                        : 'text-gray-200 hover:bg-primary-800 hover:text-white'
+                                        ? 'border-white bg-gray-900 text-white'
+                                        : 'border-transparent text-gray-300 hover:bg-gray-900 hover:border-gray-700'
                                 }`}
                             >
                                 Contact Us

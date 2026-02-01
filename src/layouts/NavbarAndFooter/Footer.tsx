@@ -71,7 +71,6 @@ export const Footer: React.FC = () => {
             <h5 className="text-white font-semibold mb-4">Quick Links</h5>
             <ul className="space-y-2">
               <li><a href="/" className="text-gray-400 hover:text-white transition-colors text-sm">Home</a></li>
-              <li><a href="/about" className="text-gray-400 hover:text-white transition-colors text-sm">About Us</a></li>
               <li><a href="/manifestos/central" className="text-gray-400 hover:text-white transition-colors text-sm">Central Manifestos</a></li>
               <li><a href="/manifestos/states" className="text-gray-400 hover:text-white transition-colors text-sm">State Manifestos</a></li>
               <li><a href="/tracking" className="text-gray-400 hover:text-white transition-colors text-sm">Promise Tracking</a></li>

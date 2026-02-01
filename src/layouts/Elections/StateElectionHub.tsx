@@ -246,7 +246,7 @@ export const StateElectionHub: React.FC<StateElectionHubProps> = () => {
             notStarted: 12,
           }}
           onViewReport={() => {
-            console.log('View detailed report card');
+            // TODO: Navigate to detailed report page
           }}
         />
       </div>

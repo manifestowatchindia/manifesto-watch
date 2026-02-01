@@ -3,6 +3,85 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════
+   MANIFESTOWATCH DESIGN SYSTEM - CSS Variables
+   Reference: frontend-implementation-stories.md Color Palette
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─────────────────────────────────────────────────────────────
+     PRIMARY COLORS - Core Brand Identity
+     ───────────────────────────────────────────────────────────── */
+  
+  --color-bg-primary: #000000;        /* Main page background */
+  --color-bg-secondary: #0a0a0a;      /* Page sections background */
+  --color-bg-card: #0d0d0d;           /* Card inner elements */
+  --color-bg-elevated: #1a1a1a;       /* Cards, modals, elevated surfaces */
+  
+  --color-accent-primary: #FF4500;    /* Primary CTA, highlights, links */
+  --color-accent-secondary: #FF6B35;  /* Gradients, hover states */
+  --color-accent-tertiary: #00D4AA;   /* Secondary accent (Teal) */
+  
+  --color-text-primary: #FFFFFF;      /* Main text */
+  --color-text-secondary: #CCCCCC;    /* Descriptions, subtitles */
+  --color-text-muted: #888888;        /* Labels, hints, timestamps */
+  --color-text-disabled: #666666;     /* Disabled text, placeholders */
+
+  /* ─────────────────────────────────────────────────────────────
+     PROMISE STATUS COLORS - For tracking promise delivery
+     ───────────────────────────────────────────────────────────── */
+  
+  --color-status-delivered: #4CAF50;           /* Green - Completed */
+  --color-status-implementation: #2196F3;      /* Blue - In Progress */
+  --color-status-actioned: #FF9800;            /* Orange - Started */
+  --color-status-announced: #9E9E9E;           /* Gray - Pending */
+  --color-status-deferred: #F44336;            /* Red - Cancelled/Failed */
+
+  /* ─────────────────────────────────────────────────────────────
+     INDIAN FLAG COLORS - Patriotic/Decorative Elements
+     ───────────────────────────────────────────────────────────── */
+  
+  --color-india-saffron: #FF9933;     /* BJP elements, decorative borders */
+  --color-india-white: #FFFFFF;       /* Neutral, text */
+  --color-india-green: #138808;       /* Success indicators, decorative */
+
+  /* ─────────────────────────────────────────────────────────────
+     UI FEEDBACK COLORS - Alerts, Validation, Messages
+     ───────────────────────────────────────────────────────────── */
+  
+  --color-success: #4CAF50;           /* Success messages, completed */
+  --color-warning: #FFC107;           /* Warnings, caution */
+  --color-error: #F44336;             /* Errors, destructive actions */
+  --color-info: #2196F3;              /* Information, neutral alerts */
+
+  /* ─────────────────────────────────────────────────────────────
+     BORDER & DIVIDER COLORS
+     ───────────────────────────────────────────────────────────── */
+  
+  --color-border-default: #333333;    /* Default borders */
+  --color-border-light: rgba(255, 255, 255, 0.1);   /* Subtle dividers */
+  --color-border-accent: rgba(255, 69, 0, 0.3);     /* Accent borders */
+  --color-border-teal: rgba(0, 212, 170, 0.3);      /* Teal borders */
+
+  /* ─────────────────────────────────────────────────────────────
+     GRADIENTS
+     ───────────────────────────────────────────────────────────── */
+  
+  --gradient-primary: linear-gradient(135deg, #FF4500 0%, #FF6B35 100%);
+  --gradient-hero: linear-gradient(135deg, #FF4500 0%, #FF6B35 50%, #FF4500 100%);
+  --gradient-card-hover: linear-gradient(135deg, rgba(255, 69, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);
+  --gradient-teal: linear-gradient(135deg, #00D4AA 0%, #00B894 100%);
+
+  /* ─────────────────────────────────────────────────────────────
+     SHADOWS
+     ───────────────────────────────────────────────────────────── */
+  
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-card-hover: 0 10px 40px rgba(0, 0, 0, 0.8);
+  --shadow-accent: 0 5px 15px rgba(255, 69, 0, 0.4);
+  --shadow-teal: 0 5px 15px rgba(0, 212, 170, 0.3);
+}
+
 /* Custom base styles */
 @layer base {
   body {
@@ -12,6 +91,8 @@
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
   }
 
   code {
@@ -22,7 +103,93 @@
 
 /* Custom component styles */
 @layer components {
-  /* Add custom component classes here */
+  /* Hero Section Styles */
+  .hero-section {
+    background: var(--color-bg-primary);
+  }
+  
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  /* Countdown Strip Styles */
+  .countdown-strip {
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border-light);
+    border-bottom: 1px solid var(--color-border-accent);
+  }
+
+  /* Election Countdown Card */
+  .countdown-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-default);
+    border-radius: 12px;
+  }
+
+  .countdown-card:hover {
+    border-color: var(--color-border-accent);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  /* Urgency Colors */
+  .urgency-high {
+    background: rgba(244, 67, 54, 0.1);
+    border-color: rgba(244, 67, 54, 0.5);
+  }
+
+  .urgency-medium {
+    background: rgba(255, 152, 0, 0.1);
+    border-color: rgba(255, 152, 0, 0.5);
+  }
+
+  .urgency-low {
+    background: rgba(76, 175, 80, 0.1);
+    border-color: rgba(76, 175, 80, 0.5);
+  }
+
+  /* Primary CTA Button */
+  .btn-cta-primary {
+    background: var(--gradient-primary);
+    color: var(--color-text-primary);
+    box-shadow: var(--shadow-accent);
+  }
+
+  .btn-cta-primary:hover {
+    filter: brightness(1.1);
+  }
+
+  /* Secondary CTA Button (Teal) */
+  .btn-cta-secondary {
+    background: var(--gradient-teal);
+    color: var(--color-bg-primary);
+    box-shadow: var(--shadow-teal);
+  }
+
+  .btn-cta-secondary:hover {
+    filter: brightness(1.1);
+  }
+
+  /* Trust Indicator */
+  .trust-indicator {
+    color: var(--color-accent-tertiary);
+  }
+
+  /* Status Badges */
+  .badge-delivered { background: var(--color-status-delivered); color: white; }
+  .badge-in-progress { background: var(--color-status-implementation); color: white; }
+  .badge-actioned { background: var(--color-status-actioned); color: white; }
+  .badge-announced { background: var(--color-status-announced); color: white; }
+  .badge-deferred { background: var(--color-status-deferred); color: white; }
+  .badge-new { background: var(--color-accent-tertiary); color: var(--color-bg-primary); }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Custom utility styles */
@@ -43,4 +210,24 @@
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
   }
+
+  /* Text colors using CSS variables */
+  .text-primary { color: var(--color-text-primary); }
+  .text-secondary { color: var(--color-text-secondary); }
+  .text-muted { color: var(--color-text-muted); }
+  .text-disabled { color: var(--color-text-disabled); }
+  .text-accent { color: var(--color-accent-primary); }
+  .text-accent-teal { color: var(--color-accent-tertiary); }
+
+  /* Background colors using CSS variables */
+  .bg-primary { background-color: var(--color-bg-primary); }
+  .bg-secondary { background-color: var(--color-bg-secondary); }
+  .bg-card { background-color: var(--color-bg-card); }
+  .bg-elevated { background-color: var(--color-bg-elevated); }
+
+  /* Border colors using CSS variables */
+  .border-default { border-color: var(--color-border-default); }
+  .border-light { border-color: var(--color-border-light); }
+  .border-accent { border-color: var(--color-border-accent); }
+  .border-teal { border-color: var(--color-border-teal); }
 }

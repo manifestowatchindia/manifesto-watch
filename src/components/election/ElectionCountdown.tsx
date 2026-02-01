@@ -239,7 +239,6 @@ export const ElectionCountdown: React.FC<ElectionCountdownProps> = ({
               className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/50"
               onClick={() => {
                 // TODO: Navigate to tracking page
-                console.log('Track Promises clicked');
               }}
             >
               📊 Track Promises
@@ -248,7 +247,6 @@ export const ElectionCountdown: React.FC<ElectionCountdownProps> = ({
               className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/50"
               onClick={() => {
                 // TODO: Navigate to comparison page
-                console.log('Compare Parties clicked');
               }}
             >
               ⚖️ Compare Parties

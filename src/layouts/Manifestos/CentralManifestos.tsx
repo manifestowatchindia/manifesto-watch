@@ -29,7 +29,7 @@ interface CentralManifesto {
 /**
  * Skeleton loader for manifesto cards during loading state
  */
-const ManifestoCardSkeleton: React.FC = () => (
+const _ManifestoCardSkeleton: React.FC = () => (
     <div className="bg-white rounded-xl border-2 border-gray-200 overflow-hidden animate-pulse">
         <div className="bg-gray-100 px-6 py-4 border-b-2 border-gray-200">
             <div className="flex items-center gap-4">

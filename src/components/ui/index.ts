@@ -30,3 +30,6 @@ export type { SkeletonCardProps } from './SkeletonCard';
 
 export { SkeletonList } from './SkeletonList';
 export type { SkeletonListProps } from './SkeletonList';
+
+export { AnimatedCounter } from './AnimatedCounter';
+export type { AnimatedCounterProps } from './AnimatedCounter';
