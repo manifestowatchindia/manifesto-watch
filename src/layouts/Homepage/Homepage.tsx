@@ -1,35 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { HeroSectionOverlay, TopPromisesSection, StateElectionHubs, InteractiveIndiaMap, AboutManifestoWatch, SectionErrorBoundary, HomepageSEO } from '../../components/homepage';
-import { electionService } from '../../services/election/electionService';
-import { Election } from '../../lib/types';
 
 export const Homepage: React.FC = () => {
-    const [elections, setElections] = useState<Election[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchElections = async () => {
-            try {
-                setIsLoading(true);
-
-                // Fetch active elections (within 365 days for more options)
-                const fetchedElections = await electionService.getActiveElections(365);
-
-                if (fetchedElections && fetchedElections.length > 0) {
-                    setElections(fetchedElections);
-                } else {
-                    setElections([]);
-                }
-            } catch (err) {
-                console.error('Failed to fetch elections:', err);
-                setElections([]);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchElections();
-    }, []);
+    const isLoading = false;
 
     return (
         <>

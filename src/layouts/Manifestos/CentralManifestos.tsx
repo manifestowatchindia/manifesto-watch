@@ -32,7 +32,7 @@ export const CentralManifestos: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState<string>('');
 
     // Central Government Manifestos Data
-    const centralManifestos: CentralManifesto[] = [
+    const centralManifestos: CentralManifesto[] = useMemo(() => [
         {
             id: 1,
             party: 'BJP+ (NDA Alliance)',
@@ -128,7 +128,7 @@ export const CentralManifestos: React.FC = () => {
                 'National security commitment'
             ]
         }
-    ];
+    ], []); // useMemo dependency array - memoize static data
 
     // Filter manifestos based on selected year and search term
     const filteredManifestos = useMemo(() => {
