@@ -9,14 +9,12 @@ export const ManifestoWatchDashboard: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'measurable' | 'budget'>('all');
   const [promises, setPromises] = useState<PromiseType[]>([]);
-  const [_loading, setLoading] = useState(true);
 
   useEffect(() => {
     promiseService.getAllPromises().then((data) => {
       setPromises(data);
-      setLoading(false);
     }).catch(() => {
-      setLoading(false);
+      // Error handling can be added here if needed
     });
   }, []);
 
