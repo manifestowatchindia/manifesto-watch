@@ -117,7 +117,6 @@ export const NewsUpdates: React.FC = () => {
             // The Hindu RSS Feed - Politics section
             try {
                 const hinduURL = encodeURIComponent('https://www.thehindu.com/news/national/politics/feeder/default.rss');
-                console.log('Fetching The Hindu RSS...');
                 const hinduResponse = await fetch(CORS_PROXY + hinduURL);
                 
                 if (!hinduResponse.ok) {
@@ -125,12 +124,9 @@ export const NewsUpdates: React.FC = () => {
                 }
                 
                 const hinduData = await hinduResponse.json();
-                console.log('The Hindu data received:', hinduData);
-                console.log('The Hindu contents preview:', hinduData.contents?.substring(0, 200));
                 
                 if (hinduData && hinduData.contents) {
                     const hinduArticles = parseRSSFeed(hinduData.contents, 'The Hindu');
-                    console.log('Parsed Hindu articles:', hinduArticles);
                     articles.push(...hinduArticles);
                 }
             } catch (err) {
@@ -140,7 +136,6 @@ export const NewsUpdates: React.FC = () => {
             // Indian Express RSS Feed - India Politics
             try {
                 const expressURL = encodeURIComponent('https://indianexpress.com/section/india/feed/');
-                console.log('Fetching Indian Express RSS...');
                 const expressResponse = await fetch(CORS_PROXY + expressURL);
                 
                 if (!expressResponse.ok) {
@@ -148,18 +143,14 @@ export const NewsUpdates: React.FC = () => {
                 }
                 
                 const expressData = await expressResponse.json();
-                console.log('Indian Express data received:', expressData);
                 
                 if (expressData && expressData.contents) {
                     const expressArticles = parseRSSFeed(expressData.contents, 'Indian Express');
-                    console.log('Parsed Express articles:', expressArticles.length);
                     articles.push(...expressArticles);
                 }
             } catch (err) {
                 console.error('Error fetching Indian Express RSS:', err);
             }
-
-            console.log('Total articles fetched:', articles.length);
 
             if (articles.length === 0) {
                 console.warn('No articles fetched from RSS feeds. Using sample data.');

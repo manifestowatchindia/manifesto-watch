@@ -3,7 +3,7 @@ import SEO from '../../components/SEO';
 
 export const AboutUs: React.FC = () => {
     return (
-        <div className="about-us-page">
+        <div className="about-us-page" style={{ margin: '0 auto' }}>
             <SEO 
                 title="About Us - Manifesto Watch | Promoting Political Transparency in India"
                 description="Learn about Manifesto Watch's mission to promote transparency and accountability in Indian politics by tracking manifestos and election promises."
@@ -13,8 +13,8 @@ export const AboutUs: React.FC = () => {
             {/* Hero Section */}
             <div className="about-hero-section">
                 <div className="container py-5">
-                    <div className="row justify-content-center text-center">
-                        <div className="col-lg-8">
+                    <div className="row justify-content-center">
+                        <div className="col-lg-8 text-center">
                             <h1 className="display-3 fw-bold text-white mb-4">About Manifesto Watch</h1>
                             <p className="lead text-white-50 mb-4">
                                 Empowering citizens with transparency, accountability, and data-driven insights 
@@ -26,7 +26,7 @@ export const AboutUs: React.FC = () => {
             </div>
 
             {/* Mission & Vision */}
-            <div className="container my-5 py-5">
+            <div className="container my-5 py-5" style={{ maxWidth: '1200px' }}>
                 <div className="row g-4 mb-5">
                     <div className="col-md-6">
                         <div className="about-card h-100 p-5">
@@ -55,14 +55,14 @@ export const AboutUs: React.FC = () => {
                 </div>
 
                 {/* What We Do */}
-                <div className="text-center mb-5">
+                <div className="text-center mb-5" style={{ maxWidth: '800px', margin: '0 auto 3rem' }}>
                     <h2 className="display-5 fw-bold text-white mb-3">What We Do</h2>
                     <p className="lead text-white-50 mb-5">
                         We provide comprehensive tools and data to track political accountability
                     </p>
                 </div>
 
-                <div className="row g-4 mb-5">
+                <div className="row g-4 mb-5 justify-content-center">
                     <div className="col-lg-4 col-md-6">
                         <div className="feature-card text-center p-4">
                             <div className="feature-icon mb-3">
@@ -183,11 +183,11 @@ export const AboutUs: React.FC = () => {
                 </div>
 
                 {/* Our Values */}
-                <div className="text-center mb-5">
+                <div className="text-center mb-5" style={{ maxWidth: '800px', margin: '0 auto 3rem' }}>
                     <h2 className="display-5 fw-bold text-white mb-5">Our Core Values</h2>
                 </div>
 
-                <div className="row g-4 mb-5">
+                <div className="row g-4 mb-5 justify-content-center">
                     <div className="col-md-3">
                         <div className="value-card text-center p-4">
                             <div className="value-icon mb-3">
@@ -235,7 +235,7 @@ export const AboutUs: React.FC = () => {
                 </div>
 
                 {/* Call to Action */}
-                <div className="cta-section text-center p-5">
+                <div className="cta-section text-center p-5" style={{ maxWidth: '900px', margin: '0 auto' }}>
                     <h2 className="text-white mb-3">Join Us in Strengthening Democracy</h2>
                     <p className="text-white-50 mb-4 lead">
                         Together, we can build a more transparent and accountable political system

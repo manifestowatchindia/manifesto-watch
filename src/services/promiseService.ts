@@ -5,6 +5,7 @@
 
 import { Promise as PromiseType } from '../lib/types';
 import { fetchPromises as apiFetchPromises, fetchPromisesByCategory as apiFetchPromisesByCategory } from './api';
+import cacheManager from './api/cache-manager';
 
 /**
  * Interface for Promise Data Repository
@@ -18,22 +19,26 @@ export interface IPromiseRepository {
 
 /**
  * API Repository - Fetches data from backend API
+ * Now uses centralized CacheManager for caching
  */
 class ApiPromiseRepository implements IPromiseRepository {
-  private cache: Map<string, { data: any; timestamp: number }> = new Map();
   private readonly CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
-  private isCacheValid(key: string): boolean {
-    const cached = this.cache.get(key);
-    if (!cached) return false;
-    return Date.now() - cached.timestamp < this.CACHE_TTL;
-  }
-
   async getAllPromises(): Promise<PromiseType[]> {
-    const cacheKey = 'all-promises';
+    const cacheKey = 'promises:all';
     
-    if (this.isCacheValid(cacheKey)) {
-      return this.cache.get(cacheKey)!.data;
+    // Check cache first
+    const cached = cacheManager.get<PromiseType[]>(cacheKey);
+    if (cached) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log('[Cache Hit] All promises');
+      }
+      return cached;
+    }
+
+    // Cache miss - fetch from API
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[Cache Miss] All promises - fetching from API');
     }
 
     try {
@@ -44,7 +49,9 @@ class ApiPromiseRepository implements IPromiseRepository {
       }
 
       const promises = this.transformApiData(response.data as any[]);
-      this.cache.set(cacheKey, { data: promises, timestamp: Date.now() });
+      
+      // Store in cache
+      cacheManager.set(cacheKey, promises, this.CACHE_TTL);
       
       return promises;
     } catch (error) {
@@ -54,10 +61,20 @@ class ApiPromiseRepository implements IPromiseRepository {
   }
 
   async getPromisesByCategory(categoryId: string): Promise<PromiseType[]> {
-    const cacheKey = `category-${categoryId}`;
+    const cacheKey = `promises:category:${categoryId}`;
     
-    if (this.isCacheValid(cacheKey)) {
-      return this.cache.get(cacheKey)!.data;
+    // Check cache first
+    const cached = cacheManager.get<PromiseType[]>(cacheKey);
+    if (cached) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`[Cache Hit] Promises for category ${categoryId}`);
+      }
+      return cached;
+    }
+
+    // Cache miss - fetch from API
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`[Cache Miss] Category ${categoryId} - fetching from API`);
     }
 
     try {
@@ -68,7 +85,9 @@ class ApiPromiseRepository implements IPromiseRepository {
       }
 
       const promises = this.transformApiData(response.data as any[]);
-      this.cache.set(cacheKey, { data: promises, timestamp: Date.now() });
+      
+      // Store in cache
+      cacheManager.set(cacheKey, promises, this.CACHE_TTL);
       
       return promises;
     } catch (error) {
@@ -78,9 +97,28 @@ class ApiPromiseRepository implements IPromiseRepository {
   }
 
   async getPromiseById(id: string): Promise<PromiseType | undefined> {
+    const cacheKey = `promises:id:${id}`;
+    
+    // Check cache first
+    const cached = cacheManager.get<PromiseType>(cacheKey);
+    if (cached) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`[Cache Hit] Promise ${id}`);
+      }
+      return cached;
+    }
+
     try {
+      // Try to find in all promises cache first
       const allPromises = await this.getAllPromises();
-      return allPromises.find(p => p.id === id);
+      const promise = allPromises.find(p => p.id === id);
+      
+      // Cache individual promise if found
+      if (promise) {
+        cacheManager.set(cacheKey, promise, this.CACHE_TTL);
+      }
+      
+      return promise;
     } catch (error) {
       console.error(`API fetch failed for promise ${id}:`, error);
       throw error;
@@ -106,7 +144,13 @@ class ApiPromiseRepository implements IPromiseRepository {
   }
 
   clearCache(): void {
-    this.cache.clear();
+    // Clear all promise-related cache entries
+    const keys = cacheManager.getKeys();
+    keys.forEach(key => {
+      if (key.startsWith('promises:')) {
+        cacheManager.delete(key);
+      }
+    });
   }
 }
 

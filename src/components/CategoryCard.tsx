@@ -9,15 +9,15 @@ interface CategoryCardProps {
 
 export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   const [promises, setPromises] = useState<PromiseType[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    promiseService.getPromisesByCategory(category.id).then((data) => {
-      setPromises(data);
-      setLoading(false);
-    }).catch(() => {
-      setLoading(false);
-    });
+    promiseService.getPromisesByCategory(category.id)
+      .then((data) => {
+        setPromises(data);
+      })
+      .catch(() => {
+        // Silently handle errors - component will still render
+      });
   }, [category.id]);
 
   const stats = promiseService.getStats(promises);
@@ -46,79 +46,48 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   return (
     <Link 
       to={`/government-dashboard/category/${category.slug}`}
-      className="text-decoration-none"
-      style={{ display: 'block' }}
+      className="block group"
     >
       <div 
-        className="card h-100 shadow-sm hover-lift"
+        className="h-full bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
         style={{
-          backgroundColor: '#1a1a1a',
-          border: '1px solid #333',
-          borderRadius: '16px',
-          transition: 'all 0.3s ease',
-          cursor: 'pointer',
-          overflow: 'hidden'
+          boxShadow: '0 4px 6px rgba(0,0,0,0.3)'
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateY(-8px)';
-          e.currentTarget.style.boxShadow = `0 12px 24px rgba(${parseInt(category.color?.slice(1, 3) || 'FF', 16)}, ${parseInt(category.color?.slice(3, 5) || '45', 16)}, ${parseInt(category.color?.slice(5, 7) || '00', 16)}, 0.3)`;
+          const rgb = category.color ? 
+            `${parseInt(category.color.slice(1, 3), 16)}, ${parseInt(category.color.slice(3, 5), 16)}, ${parseInt(category.color.slice(5, 7), 16)}` : 
+            '255, 69, 0';
+          e.currentTarget.style.boxShadow = `0 12px 24px rgba(${rgb}, 0.3)`;
           e.currentTarget.style.borderColor = category.color || '#FF4500';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateY(0)';
           e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.3)';
-          e.currentTarget.style.borderColor = '#333';
+          e.currentTarget.style.borderColor = '#1f2937';
         }}
       >
         {/* Color Bar */}
-        <div style={{
-          height: '4px',
-          backgroundColor: category.color || '#FF4500',
-          width: '100%'
-        }} />
+        <div 
+          className="h-1 w-full"
+          style={{ backgroundColor: category.color || '#FF4500' }}
+        />
 
-        <div className="card-body p-4">
+        <div className="p-4">
           {/* Icon & Title */}
-          <div className="d-flex align-items-start mb-3">
+          <div className="flex items-start mb-3">
             <div 
-              className="d-flex align-items-center justify-content-center"
-              style={{
-                width: '56px',
-                height: '56px',
-                backgroundColor: `${category.color || '#FF4500'}20`,
-                borderRadius: '12px',
-                marginRight: '16px',
-                flexShrink: 0
-              }}
+              className="flex items-center justify-center w-14 h-14 rounded-xl mr-4 flex-shrink-0"
+              style={{ backgroundColor: `${category.color || '#FF4500'}20` }}
             >
               <i 
-                className={`fas ${iconClass}`}
-                style={{ 
-                  fontSize: '28px', 
-                  color: category.color || '#FF4500'
-                }} 
+                className={`fas ${iconClass} text-3xl`}
+                style={{ color: category.color || '#FF4500' }} 
               />
             </div>
-            <div className="flex-grow-1">
-              <h5 
-                className="card-title mb-2"
-                style={{ 
-                  color: '#fff',
-                  fontSize: '1.1rem',
-                  fontWeight: '600',
-                  lineHeight: '1.3'
-                }}
-              >
+            <div className="flex-1 min-w-0">
+              <h5 className="text-white text-lg font-semibold leading-tight mb-2">
                 {category.name}
               </h5>
-              <p 
-                className="text-muted small mb-0"
-                style={{ 
-                  color: '#aaa',
-                  fontSize: '0.85rem',
-                  lineHeight: '1.4'
-                }}
-              >
+              <p className="text-gray-400 text-sm leading-normal">
                 {category.description}
               </p>
             </div>
@@ -126,82 +95,31 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
 
           {/* Stats */}
           <div className="mt-4">
-            <div className="row g-3">
-              <div className="col-6">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="text-center p-2 bg-black rounded-lg border border-gray-800">
                 <div 
-                  className="text-center p-2"
-                  style={{
-                    backgroundColor: '#0d0d0d',
-                    borderRadius: '8px',
-                    border: '1px solid #222'
-                  }}
+                  className="text-2xl font-bold"
+                  style={{ color: category.color || '#FF4500' }}
                 >
-                  <div 
-                    style={{ 
-                      fontSize: '1.5rem',
-                      fontWeight: '700',
-                      color: category.color || '#FF4500'
-                    }}
-                  >
-                    {stats.total}
-                  </div>
-                  <div 
-                    style={{ 
-                      fontSize: '0.75rem',
-                      color: '#888',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.5px',
-                      marginTop: '2px'
-                    }}
-                  >
-                    Promises
-                  </div>
+                  {stats.total}
+                </div>
+                <div className="text-xs text-gray-500 uppercase tracking-wider mt-0.5">
+                  Promises
                 </div>
               </div>
-              <div className="col-6">
-                <div 
-                  className="text-center p-2"
-                  style={{
-                    backgroundColor: '#0d0d0d',
-                    borderRadius: '8px',
-                    border: '1px solid #222'
-                  }}
-                >
-                  <div 
-                    style={{ 
-                      fontSize: '1.5rem',
-                      fontWeight: '700',
-                      color: '#4CAF50'
-                    }}
-                  >
-                    {stats.measurablePercent}%
-                  </div>
-                  <div 
-                    style={{ 
-                      fontSize: '0.75rem',
-                      color: '#888',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.5px',
-                      marginTop: '2px'
-                    }}
-                  >
-                    Measurable
-                  </div>
+              <div className="text-center p-2 bg-black rounded-lg border border-gray-800">
+                <div className="text-2xl font-bold text-green-500">
+                  {stats.measurablePercent}%
+                </div>
+                <div className="text-xs text-gray-500 uppercase tracking-wider mt-0.5">
+                  Measurable
                 </div>
               </div>
             </div>
 
             {/* Status Bar */}
             <div className="mt-3">
-              <div 
-                style={{
-                  height: '8px',
-                  backgroundColor: '#0d0d0d',
-                  borderRadius: '4px',
-                  overflow: 'hidden',
-                  display: 'flex'
-                }}
-              >
+              <div className="h-2 bg-black rounded overflow-hidden flex">
                 {Object.entries(stats.statusBreakdown).map(([status, count]) => {
                   const percentage = stats.total > 0 ? (count / stats.total) * 100 : 0;
                   const statusColors: Record<string, string> = {
@@ -217,22 +135,21 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
                   return (
                     <div
                       key={status}
+                      className="h-full"
                       style={{
                         width: `${percentage}%`,
-                        backgroundColor: statusColors[status] || '#666',
-                        height: '100%'
+                        backgroundColor: statusColors[status] || '#666'
                       }}
                       title={`${status}: ${count}`}
                     />
                   );
                 })}
               </div>
-              <div 
-                className="d-flex justify-content-between mt-2"
-                style={{ fontSize: '0.7rem', color: '#666' }}
-              >
+              <div className="flex justify-between mt-2 text-xs text-gray-600">
                 <span>Status Distribution</span>
-                <span className="text-muted">View Details →</span>
+                <span className="text-gray-500 group-hover:text-gray-400 transition-colors">
+                  View Details →
+                </span>
               </div>
             </div>
           </div>
